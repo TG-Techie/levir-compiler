@@ -31,7 +31,7 @@ def tobody(mod:Module, cls:Class) -> str:
     Content = f"content_{srcname}"
 
     content_body = ';\n    '.join(
-        f"{Type_(mbrtype)} mbr_{mbrname}" \
+        f"{typename(mbrtype)} mbr_{mbrname}" \
         for mbrname, mbrtype in cls.mbrs.items()
     )
 

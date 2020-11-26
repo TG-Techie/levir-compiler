@@ -10,7 +10,7 @@ def tobody(mod:front.Module, fn:front.Func) -> str:
     stmtbody = ''.join(fromstmt.translate(stmt) for stmt in fn.frame.stmts)
     stmtbody = stmtbody.replace('\n', '\n    ')
     declarations = '\n    '.join(
-        f"{Type_(lcltype)} var_{lclname} = dflt_{lcltype.type.name}();"
+        f"{typename(lcltype)} var_{lclname} = dflt_{lcltype.type.name}();"
             for lclname, lcltype in fn.locals.items()
     )
     return_procedure = '\n    '.join(
