@@ -10,7 +10,7 @@ def tobody(mod:front.Module, fn:front.Func) -> str:
     stmtbody = ''.join(fromstmt.translate(stmt) for stmt in fn.frame.stmts)
     stmtbody = stmtbody.replace('\n', '\n    ')
     declarations = '\n    '.join(
-        f"{typename(lcltype)} var_{lclname} = dflt_{lcltype.type.name}();"
+        f"{Type_(lcltype)} var_{lclname} = dflt_{lcltype.type.name}();"
             for lclname, lcltype in fn.locals.items()
     )
     return_procedure = '\n    '.join(
@@ -32,6 +32,6 @@ def tobody(mod:front.Module, fn:front.Func) -> str:
     )
 
 def argsfrom(fn:front.Func):
-    #[print(typename(argtype)) for argtype in fn.args.values()]
-    params = [f"{typename(argtype)} var_{name}" for name, argtype in fn.args.items()]
+    #[print(Type_(argtype)) for argtype in fn.args.values()]
+    params = [f"{Type_(argtype)} var_{name}" for name, argtype in fn.args.items()]
     return f"({', '.join(params)})"

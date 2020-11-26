@@ -69,6 +69,14 @@ fn(main, uint32, args(),
             uint32
         )
 
-        ret(litrl(uint32, 0), uint32)
+        ret(
+            get(mbrof(button, Widget, mbrs(
+                    mbr(pos, Coord),
+                    mbr(y, uint32)
+                )),
+                uint32
+            ),
+            uint32
+        )
     )
 )

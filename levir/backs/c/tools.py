@@ -1,8 +1,9 @@
-
+from strictly import *
 from levir import front
 
-def typename(type:front.UserType) -> str:
-    if not type.isref():
+@strictly
+def Type_(type:front.UserType, isref=False) -> str:
+    if not isref:
         return f"type_{type}"
     else:
         return f"ref_{type}"

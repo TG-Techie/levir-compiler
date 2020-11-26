@@ -8,7 +8,7 @@ from .tools import *
 @strictly
 def toprototype(mod:front.Module, cls:front.Class):
     srcname = cls.name
-    Self = f"type_{srcname}"
+    Self = Type_(cls)
     Content = f"content_{srcname}"
 
     return (
@@ -27,11 +27,11 @@ def toprototype(mod:front.Module, cls:front.Class):
 def tobody(mod:Module, cls:Class) -> str:
 
     srcname = cls.name
-    Self = f"type_{srcname}"
+    Self = Type_(cls)
     Content = f"content_{srcname}"
 
     content_body = ';\n    '.join(
-        f"{typename(mbrtype)} mbr_{mbrname}" \
+        f"{Type_(mbrtype)} mbr_{mbrname}" \
         for mbrname, mbrtype in cls.mbrs.items()
     )
 
