@@ -35,23 +35,57 @@ def tobody(mod:Module, sct:Struct) -> str:
             for mbrname, mbrtype in sct.mbrs.items()
     )
 
-    dfltblock = ';\n        '.join(
-        f".mbr_{mbrname} = dflt_{typename(mbrtype)}"
+    dfltblock = '{\n        ' + (
+        '(),\n        '.join( f".mbr_{mbrname} = dflt_{mbrtype.type.name}"
             for mbrname, mbrtype in sct.mbrs.items()
+        )
+    ) + '(),\n    }'
+
+
+    getblock = '{\n        ' + (
+        ',\n        '.join( f".mbr_{mbrname} = get_{mbrtype.type.name}(self.mbr_{mbrname})"
+            for mbrname, mbrtype in sct.mbrs.items()
+        )
+    ) + ',\n    }'
+
+    dropblock = (
+        ';\n    '.join( f"drop_{mbrtype.type.name}(self.mbr_{mbrname})"
+            for mbrname, mbrtype in sct.mbrs.items()
+        )
     )
 
     return (
         f"typedef struct {sct.name}""{\n"
         f"    {content_body};\n"
-        "}"f" content_{sct.name};\n"
+         "}" + f" content_{sct.name};\n"
     ) + ( #  new
         f"{Self} new_{srcname}({Content} content)""{\n"
-         "    return content; // a struct and its content is the same thing"
+         "    return content; /* a struct and its content is the same thing*/\n"
          "}\n"
     ) + ( # default value before assignment
         f"{Self} dflt_{srcname}()""{\n"
-         "return (){\n"
-        f"        {dfltblock};\n"
-         "    };\n"
+        f"    return ({Self}) {dfltblock};\n"
+         "}\n"
+    ) + ( # get (ie copy)
+        f"{Self} get_{srcname}({Self} self)""{\n"
+        f"    return ({Self}){getblock};\n"
+         "}\n"
+    ) + (# drop (erase local)
+        f"void drop_{srcname}({Self} self)""{\n"
+        f"    {dropblock};\n"
+         "    return;\n"
+         "}\n"
+    ) + (# retain (does nothing)
+        f"void rtn_{srcname}({Self} self)""{\n"
+         "    return;\n"
+         "}\n"
+    ) + (# release (does nothing)
+        f"void rel_{srcname}({Self} self)""{\n"
+         "    return;\n"
+         "}\n"
+    ) + (
+
+        f"{Content}* cntnptr_{srcname}({Self}* selfptr)""{\n"
+        f"    return ({Content}*) selfptr;\n"
          "}\n"
     )

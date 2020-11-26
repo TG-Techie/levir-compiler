@@ -3,10 +3,10 @@ import sys
 import levir
 
 checks = (
-    'old_grammar.lvr',
-    'new_grammar.lvr',
     'class.lvr',
     'struct.lvr',
+    'old_grammar.lvr',
+    'new_grammar.lvr',
 )
 
 for filename in checks:

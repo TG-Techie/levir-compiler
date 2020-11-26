@@ -57,25 +57,25 @@ type_uint32 fn_main(){
         type_mod_main_Counter* target_ptr = &(var_foo);
         type_mod_main_Counter prev_value = *target_ptr;
         *target_ptr = new_mod_main_Counter( (content_mod_main_Counter) {litrl_uint32(6)});
-        rel_mod_main_Counter(prev_value);
+        drop_mod_main_Counter(prev_value);
     }
     { /* assignment */
         type_uint32* target_ptr = &(var_foombr1);
         type_uint32 prev_value = *target_ptr;
         *target_ptr = get_uint32(cntnptr_mod_main_Counter(&(var_foo))->mbr__count);
-        rel_uint32(prev_value);
+        drop_uint32(prev_value);
     }
     { /* assignment */
         type_uint32* target_ptr = &(cntnptr_mod_main_Counter(&(var_foo))->mbr__count);
         type_uint32 prev_value = *target_ptr;
         *target_ptr = litrl_uint32(128);
-        rel_uint32(prev_value);
+        drop_uint32(prev_value);
     }
     { /* assignment */
         type_uint32* target_ptr = &(var_foombr2);
         type_uint32 prev_value = *target_ptr;
         *target_ptr = get_uint32(cntnptr_mod_main_Counter(&(var_foo))->mbr__count);
-        rel_uint32(prev_value);
+        drop_uint32(prev_value);
     }
     /* return statement */
     type_uint32 _return_tmp_ = get_uint32(var_foombr1);

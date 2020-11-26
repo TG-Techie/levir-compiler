@@ -8,7 +8,7 @@ item: classdef | structdef | fndef | mthddef //| genitem
 // _genfor: "for" "(" list{type, ","} ")"
 
 list{val}: "(" (val ("," val)* ","?)? ")"
-seq{val}: val+
+seq{val}: val*
 
 
 classdef: "class" "("  name "," mbrs ")"
@@ -46,8 +46,7 @@ ref:    "ref" "(" (var|mbrof) "," type ")"
 // statments
 stmt: asn_stmt      | ret_stmt      | brk_stmt
     | cont_stmt     | loop_stmt     | dbg_stmt
-    | expr_stmt     | rtn_stmt      | rel_stmt
-    | btw_stmt
+    | btw_stmt      | expr_stmt
 asn_stmt: "asn" "(" subject "," expr "," type ")"
         | subject "=" expr ("<-" type)?
 
@@ -57,16 +56,8 @@ brk_stmt:  "brk"
 cont_stmt: "cont"
 loop_stmt: "loop" "(" stmt* ")"
 
-rtn_stmt: "rtn" "(" subject ")"
-        | "rtn" subject
-rel_stmt: "rel" "(" subject ")"
-        | "rel" subject
-
-expr_stmt: expr
-
-
 btw_stmt: "btw" list{STRING} // turns into STRING? ;
-
+expr_stmt: expr
 
 dbg_stmt: "dbg" list{_dbg_content}
 _dbg_content: IDENT | stmt | item | subject
@@ -80,13 +71,12 @@ _c_symbol: "."  | "*" | "->" | "^" | "!" | "|" | "&" | "||"
 
 // expressions
 
-// duplicated to make () easier
-expr: ("("( get_expr    | fncall_expr    | mthdcall_expr
-          | new_expr    | litrl_expr     | ref_expr
-          | arith_expr  | rc_expr                           )")")
-    | (     get_expr    | fncall_expr    | mthdcall_expr
-          | new_expr    | litrl_expr     | ref_expr
-          | arith_expr  | rc_expr                           )
+expr: ("(" (get_expr | fncall_expr    | mthdcall_expr
+        | new_expr | litrl_expr     | ref_expr
+        | arith_expr) ")")
+    | ( get_expr | fncall_expr    | mthdcall_expr
+        | new_expr | litrl_expr     | ref_expr
+        | arith_expr )
 
 get_expr: "get" "(" subject "," type ")"
         |  subject ("->" type)?
@@ -118,10 +108,6 @@ arithop: ("add"|"+") -> add
        | ("mul"|"*") -> mul
        | ("div"|"/") -> div
 
-rc_expr: "rc" "." "(" subject ")" // implicit usize return type
-      // | "rc"  subject // implicit usize return type
-
-
 // "mutselfprx" "(" varname "," vartype ")"
 
 // named idents (for clarity)
@@ -144,6 +130,7 @@ fnname: IDENT
 rettype: type
 
 outtype: type
+
 
 
 literal: STRING | LONGSTRING | FLOAT | INT

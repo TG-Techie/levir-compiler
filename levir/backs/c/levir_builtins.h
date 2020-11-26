@@ -1,3 +1,4 @@
+#include <stdlib.h>
 #include <stdint.h>
 
 // TODO: auto generate macros for each individual possible operation and type.
@@ -6,11 +7,18 @@
 
 #define number_template(typename, nativetype) \
     typedef struct typename { nativetype native; } type_##typename; \
-    type_##typename dflt_##typename () { return (type_##typename){0}; } \
-    type_##typename get_##typename (type_##typename self) { return self; } \
-    void rtn_##typename (type_##typename self) { return; } \
-    void rel_##typename (type_##typename self) { return; } \
-    type_##typename litrl_##typename (nativetype val) { return (type_##typename){val}; } \
+    type_##typename __attribute__((always_inline)) dflt_##typename () \
+        { return (type_##typename){0}; } \
+    type_##typename __attribute__((always_inline)) get_##typename (type_##typename self) \
+        { return self; } \
+    void __attribute__((always_inline)) drop_##typename (type_##typename self) \
+        { return; } \
+    void __attribute__((always_inline)) rtn_##typename (type_##typename self) \
+        { return; } \
+    void __attribute__((always_inline)) rel_##typename (type_##typename self) \
+        { return; } \
+    type_##typename __attribute__((always_inline)) litrl_##typename (nativetype val) \
+        { return (type_##typename){val}; } \
 
     // cntn expose not required
 
@@ -23,6 +31,12 @@
     type_##totype cast_##fromtype##_to_##totype (type_##fromtype val) { \
         return (type_##totype) { val.native };\
     }
+
+// bases
+typedef uint64_t RefCount;
+
+number_template(usize,  uint64_t)
+number_template(RefCount,  uint64_t)
 
 number_template(uint64, uint64_t)
 number_template(uint32, uint32_t)
