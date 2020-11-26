@@ -1,0 +1,20 @@
+
+gen(for(T),
+struct(Iter, mbrs(
+    mbr(current, uint64), // = 0
+    mbr(max,     uint64), // the highest vlaue to return
+    mbr(offset,  uint64)  // shift the output by
+))
+)
+
+gen(for(T)),
+mthd(gen(Iter, for(T)), __next__, gen(Option, for(T)), args(), locals(),
+    frame(
+        asn(
+            get(mbrof(self, gen(Iter, for(T)),
+                mbr(current, uint64)),
+                uint64
+            )
+        )
+    )
+))

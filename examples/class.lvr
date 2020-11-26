@@ -1,0 +1,48 @@
+// class Counter:
+//     _count: uint32
+//     def inc(self):
+//         self._count = self._count + 1
+
+class(mod_main_Counter, mbrs(
+    mbr(_count, uint32)
+))
+
+// def main () -> uint32:
+//      foo = Counter{_count:6u32}
+//      foombr1 = foo._count
+//      foo._count = 128
+//      foombr2 = foo._count
+//      return foombr2
+
+fn(main, uint32,
+    args(),
+    locals(lcl(foo, mod_main_Counter), lcl(foombr1, uint32), lcl(foombr2, uint32)),
+    frame(
+        asn(var(foo, mod_main_Counter),
+            new(mod_main_Counter, cntn(litrl(uint32, 6))),
+            mod_main_Counter
+        )
+
+        asn(var(foombr1, uint32),
+            get(
+                mbrof(foo, mod_main_Counter, mbr(_count, uint32)),
+                uint32
+            ),
+            uint32
+        )
+
+        asn(mbrof(foo, mod_main_Counter, mbrs(
+                mbr(_count, uint32)
+            )), litrl(uint32, 128), uint32
+        )
+
+        asn(var(foombr2, uint32),
+            get(mbrof(foo, mod_main_Counter, mbr(_count, uint32)), uint32),
+            uint32
+        )
+
+        ret(get(var(foombr1, uint32), uint32), uint32)
+    )
+)
+
+// fn(selfproxytest, uint32, )
