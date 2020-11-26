@@ -19,7 +19,7 @@ def translate(stmt:front.Stmt) -> str:
 def translate_ret(ret:front.Stmt.ret) -> str:
     return (
         "/* return statement */\n"
-        f"{typename(ret.rettype)} _return_tmp_ = {fromexpr.translate(ret.expr)};\n"
+        f"{Type_(ret.rettype)} _return_tmp_ = {fromexpr.translate(ret.expr)};\n"
         f"goto _return_label_;"
     )
 
@@ -27,11 +27,11 @@ def translate_ret(ret:front.Stmt.ret) -> str:
 def translate_asn(asn:front.Stmt.asn) -> str:
     return (
     "{ /* assignment */\n"
-        f"    {typename(asn.asntype)}* target_ptr = &({fromsubj.translate(asn.subj)});\n"
-        f"    {typename(asn.asntype)} prev_value = *target_ptr;\n"
+        f"    {Type_(asn.asntype)}* target_ptr = &({fromsubj.translate(asn.subj)});\n"
+        f"    {Type_(asn.asntype)} prev_value = *target_ptr;\n"
         f"    *target_ptr = {fromexpr.translate(asn.expr)};\n"
-        f"    drop_{asn.asntype.type.name}(prev_value);\n"
+        f"    {drop_(asn.asntype)}(prev_value);\n"
     "}\n")
 
 def rel(type) -> str: # takes type compliant options
-    return f"rel_{type.type.name}"
+    return f"{rel_(type)}"

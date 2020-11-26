@@ -4,25 +4,25 @@ from .tools import *
 from . import fromstmt
 
 def toprototype(mod:front.Module, fn:front.Func) -> str:
-    return f"type_{fn.rettype.type.name} fn_{fn.name} {argsfrom(fn)};\n"
+    return f"{Type_(fn.rettype)} fn_{fn.name} {argsfrom(fn)};\n"
 
 def tobody(mod:front.Module, fn:front.Func) -> str:
     stmtbody = ''.join(fromstmt.translate(stmt) for stmt in fn.frame.stmts)
     stmtbody = stmtbody.replace('\n', '\n    ')
     declarations = '\n    '.join(
-        f"{typename(lcltype)} var_{lclname} = dflt_{lcltype.type.name}();"
+        f"{Type_(lcltype)} {var_(lclname, lcltype)} = {dflt_(lcltype)}();"
             for lclname, lcltype in fn.locals.items()
     )
     return_procedure = '\n    '.join(
-            f"drop_{lcltype.type.name}(var_{lclname});"
+            f"{drop_(lcltype)}({var_(lclname, lcltype)});"
                 for lclname, lcltype in fn.locals.items()
         ) + '\n    '.join(
-            f"drop_{argtype.type.name}(var_{argname});"
+            f"{drop_(argtype)}({var_(argname, argtype)});"
                 for argname, argtype in fn.args.items()
         )
 
     return (
-        f"type_{fn.rettype.type.name} fn_{fn.name}{argsfrom(fn)}{{ \n"\
+        f"{Type_(fn.rettype)} fn_{fn.name}{argsfrom(fn)}{{ \n"\
         f"    {declarations}\n"
         f"    {stmtbody}\n"
          "_return_label_:\n"
@@ -33,5 +33,5 @@ def tobody(mod:front.Module, fn:front.Func) -> str:
 
 def argsfrom(fn:front.Func):
     #[print(Type_(argtype)) for argtype in fn.args.values()]
-    params = [f"{Type_(argtype)} var_{name}" for name, argtype in fn.args.items()]
+    params = [f"{Type_(argtype)} {var_(name, argtype)}" for name, argtype in fn.args.items()]
     return f"({', '.join(params)})"

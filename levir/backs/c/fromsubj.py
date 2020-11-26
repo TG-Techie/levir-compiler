@@ -1,6 +1,8 @@
 from strictly import *
 from envly import *
 
+from .tools import *
+
 from levir import front
 from levir.front import Subject
 from strictly import *
@@ -13,12 +15,12 @@ def translate(subj:Subject) -> str:
     ]
 
 def translate_var(var:Subject.var) -> str:
-    return f"var_{var.name}"
+    return var_(var.name, var.type)
 
 def translate_mbrof(mbrof:Subject.var) -> str:
-    string = f"var_{mbrof.varname}"
+    string = var_(mbrof.varname, mbrof.vartype)
     outertype = mbrof.vartype
-    for mbrname, next_outertype in mbrof.mbrs.items():
-        string = f"cntnptr_{outertype.type.name}(&({string}))->mbr_{mbrname}"
-        outertype = next_outertype
+    for mbrname, cur_mbrtype in mbrof.mbrs.items():
+        string = f"{cntnptr_(outertype.type)}(&({string}))->{mbr_(mbrname, cur_mbrtype)}"
+        outertype = cur_mbrtype
     return string

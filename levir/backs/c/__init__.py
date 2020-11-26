@@ -1,15 +1,17 @@
 from envly import *
 from levir import front
 from . import tools, fromstmt
-from . import fromfunc, fromclass, fromstruct#, frommthd
+from . import fromfunc
+from . import fromclass
+from . import fromstruct#, frommthd
 
 
 def intofile(mod:front.Module, output):
     itemlist = [*mod.items.values()]
     itemlist.sort(key=lambda item:match(item)[
-        front.Class  : lambda: 1,
-        front.Struct : lambda: 2,
-        front.Func   : lambda: 3, 
+        front.Struct : lambda: 1, # structs first b/c size info is needed
+        front.Class  : lambda: 2, # classes second b/c funcs need to use them
+        front.Func   : lambda: 3,
         front.Mthd   : lambda: 4,
         ... : MatchError(f"unknown item '{type(item).__name__}'")
     ])

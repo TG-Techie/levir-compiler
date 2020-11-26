@@ -1,64 +1,54 @@
-typedef struct content_Coord /*prototype*/ content_Coord;
-typedef struct Coord /*prototype*/ *type_Class(loc=Location('examples/old_grammar.lvr', 2, 7), name='Coord', mbrs={'x': TypeIdent.type(loc=Location('examples/old_grammar.lvr', 3, 12), type=BuiltinStruct(name='uint32'), _by_ref=False, _resolved=False, _checked=False), 'y': TypeIdent.type(loc=Location('examples/old_grammar.lvr', 4, 12), type=BuiltinStruct(name='uint32'), _by_ref=False, _resolved=False, _checked=False)});
-type_Class(loc=Location('examples/old_grammar.lvr', 2, 7), name='Coord', mbrs={'x': TypeIdent.type(loc=Location('examples/old_grammar.lvr', 3, 12), type=BuiltinStruct(name='uint32'), _by_ref=False, _resolved=False, _checked=False), 'y': TypeIdent.type(loc=Location('examples/old_grammar.lvr', 4, 12), type=BuiltinStruct(name='uint32'), _by_ref=False, _resolved=False, _checked=False)}) new_Coord(content_Coord content) __attribute__ ((always_inline));
-type_Class(loc=Location('examples/old_grammar.lvr', 2, 7), name='Coord', mbrs={'x': TypeIdent.type(loc=Location('examples/old_grammar.lvr', 3, 12), type=BuiltinStruct(name='uint32'), _by_ref=False, _resolved=False, _checked=False), 'y': TypeIdent.type(loc=Location('examples/old_grammar.lvr', 4, 12), type=BuiltinStruct(name='uint32'), _by_ref=False, _resolved=False, _checked=False)}) dflt_Coord() __attribute__ ((always_inline));
-type_Class(loc=Location('examples/old_grammar.lvr', 2, 7), name='Coord', mbrs={'x': TypeIdent.type(loc=Location('examples/old_grammar.lvr', 3, 12), type=BuiltinStruct(name='uint32'), _by_ref=False, _resolved=False, _checked=False), 'y': TypeIdent.type(loc=Location('examples/old_grammar.lvr', 4, 12), type=BuiltinStruct(name='uint32'), _by_ref=False, _resolved=False, _checked=False)}) get_Coord(type_Class(loc=Location('examples/old_grammar.lvr', 2, 7), name='Coord', mbrs={'x': TypeIdent.type(loc=Location('examples/old_grammar.lvr', 3, 12), type=BuiltinStruct(name='uint32'), _by_ref=False, _resolved=False, _checked=False), 'y': TypeIdent.type(loc=Location('examples/old_grammar.lvr', 4, 12), type=BuiltinStruct(name='uint32'), _by_ref=False, _resolved=False, _checked=False)}) self) __attribute__ ((always_inline));
-void drop_Coord(type_Class(loc=Location('examples/old_grammar.lvr', 2, 7), name='Coord', mbrs={'x': TypeIdent.type(loc=Location('examples/old_grammar.lvr', 3, 12), type=BuiltinStruct(name='uint32'), _by_ref=False, _resolved=False, _checked=False), 'y': TypeIdent.type(loc=Location('examples/old_grammar.lvr', 4, 12), type=BuiltinStruct(name='uint32'), _by_ref=False, _resolved=False, _checked=False)}) self) __attribute__ ((always_inline));
-void rtn_Coord(type_Class(loc=Location('examples/old_grammar.lvr', 2, 7), name='Coord', mbrs={'x': TypeIdent.type(loc=Location('examples/old_grammar.lvr', 3, 12), type=BuiltinStruct(name='uint32'), _by_ref=False, _resolved=False, _checked=False), 'y': TypeIdent.type(loc=Location('examples/old_grammar.lvr', 4, 12), type=BuiltinStruct(name='uint32'), _by_ref=False, _resolved=False, _checked=False)}) self) __attribute__ ((always_inline));
-void rel_Coord(type_Class(loc=Location('examples/old_grammar.lvr', 2, 7), name='Coord', mbrs={'x': TypeIdent.type(loc=Location('examples/old_grammar.lvr', 3, 12), type=BuiltinStruct(name='uint32'), _by_ref=False, _resolved=False, _checked=False), 'y': TypeIdent.type(loc=Location('examples/old_grammar.lvr', 4, 12), type=BuiltinStruct(name='uint32'), _by_ref=False, _resolved=False, _checked=False)}) self) __attribute__ ((always_inline));
-content_Coord* cntnptr_Coord(type_Class(loc=Location('examples/old_grammar.lvr', 2, 7), name='Coord', mbrs={'x': TypeIdent.type(loc=Location('examples/old_grammar.lvr', 3, 12), type=BuiltinStruct(name='uint32'), _by_ref=False, _resolved=False, _checked=False), 'y': TypeIdent.type(loc=Location('examples/old_grammar.lvr', 4, 12), type=BuiltinStruct(name='uint32'), _by_ref=False, _resolved=False, _checked=False)})* selfptr) __attribute__ ((always_inline));
+typedef struct Coord /*prototype*/ type_Coord;
+typedef type_Coord content_Coord;
+type_Coord new_Coord(content_Coord content) __attribute__ ((always_inline));
+type_Coord dflt_Coord() __attribute__ ((always_inline));
+type_Coord get_Coord(type_Coord self) __attribute__ ((always_inline));
+void drop_Coord(type_Coord self) __attribute__ ((always_inline));
+void rtn_Coord(type_Coord self) __attribute__ ((always_inline));
+void rel_Coord(type_Coord self) __attribute__ ((always_inline));
+content_Coord* cntnptr_Coord(type_Coord* selfptr) __attribute__ ((always_inline));
 typedef struct content_Widget /*prototype*/ content_Widget;
-typedef struct Widget /*prototype*/ *type_Class(loc=Location('examples/old_grammar.lvr', 7, 7), name='Widget', mbrs={'pos': TypeIdent.type(loc=Location('examples/old_grammar.lvr', 8, 14), type=Class(loc=Location('examples/old_grammar.lvr', 2, 7), name='Coord', mbrs={'x': TypeIdent.type(loc=Location('examples/old_grammar.lvr', 3, 12), type=BuiltinStruct(name='uint32'), _by_ref=False, _resolved=False, _checked=False), 'y': TypeIdent.type(loc=Location('examples/old_grammar.lvr', 4, 12), type=BuiltinStruct(name='uint32'), _by_ref=False, _resolved=False, _checked=False)}), _by_ref=False, _resolved=False, _checked=False)});
-type_Class(loc=Location('examples/old_grammar.lvr', 7, 7), name='Widget', mbrs={'pos': TypeIdent.type(loc=Location('examples/old_grammar.lvr', 8, 14), type=Class(loc=Location('examples/old_grammar.lvr', 2, 7), name='Coord', mbrs={'x': TypeIdent.type(loc=Location('examples/old_grammar.lvr', 3, 12), type=BuiltinStruct(name='uint32'), _by_ref=False, _resolved=False, _checked=False), 'y': TypeIdent.type(loc=Location('examples/old_grammar.lvr', 4, 12), type=BuiltinStruct(name='uint32'), _by_ref=False, _resolved=False, _checked=False)}), _by_ref=False, _resolved=False, _checked=False)}) new_Widget(content_Widget content) __attribute__ ((always_inline));
-type_Class(loc=Location('examples/old_grammar.lvr', 7, 7), name='Widget', mbrs={'pos': TypeIdent.type(loc=Location('examples/old_grammar.lvr', 8, 14), type=Class(loc=Location('examples/old_grammar.lvr', 2, 7), name='Coord', mbrs={'x': TypeIdent.type(loc=Location('examples/old_grammar.lvr', 3, 12), type=BuiltinStruct(name='uint32'), _by_ref=False, _resolved=False, _checked=False), 'y': TypeIdent.type(loc=Location('examples/old_grammar.lvr', 4, 12), type=BuiltinStruct(name='uint32'), _by_ref=False, _resolved=False, _checked=False)}), _by_ref=False, _resolved=False, _checked=False)}) dflt_Widget() __attribute__ ((always_inline));
-type_Class(loc=Location('examples/old_grammar.lvr', 7, 7), name='Widget', mbrs={'pos': TypeIdent.type(loc=Location('examples/old_grammar.lvr', 8, 14), type=Class(loc=Location('examples/old_grammar.lvr', 2, 7), name='Coord', mbrs={'x': TypeIdent.type(loc=Location('examples/old_grammar.lvr', 3, 12), type=BuiltinStruct(name='uint32'), _by_ref=False, _resolved=False, _checked=False), 'y': TypeIdent.type(loc=Location('examples/old_grammar.lvr', 4, 12), type=BuiltinStruct(name='uint32'), _by_ref=False, _resolved=False, _checked=False)}), _by_ref=False, _resolved=False, _checked=False)}) get_Widget(type_Class(loc=Location('examples/old_grammar.lvr', 7, 7), name='Widget', mbrs={'pos': TypeIdent.type(loc=Location('examples/old_grammar.lvr', 8, 14), type=Class(loc=Location('examples/old_grammar.lvr', 2, 7), name='Coord', mbrs={'x': TypeIdent.type(loc=Location('examples/old_grammar.lvr', 3, 12), type=BuiltinStruct(name='uint32'), _by_ref=False, _resolved=False, _checked=False), 'y': TypeIdent.type(loc=Location('examples/old_grammar.lvr', 4, 12), type=BuiltinStruct(name='uint32'), _by_ref=False, _resolved=False, _checked=False)}), _by_ref=False, _resolved=False, _checked=False)}) self) __attribute__ ((always_inline));
-void drop_Widget(type_Class(loc=Location('examples/old_grammar.lvr', 7, 7), name='Widget', mbrs={'pos': TypeIdent.type(loc=Location('examples/old_grammar.lvr', 8, 14), type=Class(loc=Location('examples/old_grammar.lvr', 2, 7), name='Coord', mbrs={'x': TypeIdent.type(loc=Location('examples/old_grammar.lvr', 3, 12), type=BuiltinStruct(name='uint32'), _by_ref=False, _resolved=False, _checked=False), 'y': TypeIdent.type(loc=Location('examples/old_grammar.lvr', 4, 12), type=BuiltinStruct(name='uint32'), _by_ref=False, _resolved=False, _checked=False)}), _by_ref=False, _resolved=False, _checked=False)}) self) __attribute__ ((always_inline));
-void rtn_Widget(type_Class(loc=Location('examples/old_grammar.lvr', 7, 7), name='Widget', mbrs={'pos': TypeIdent.type(loc=Location('examples/old_grammar.lvr', 8, 14), type=Class(loc=Location('examples/old_grammar.lvr', 2, 7), name='Coord', mbrs={'x': TypeIdent.type(loc=Location('examples/old_grammar.lvr', 3, 12), type=BuiltinStruct(name='uint32'), _by_ref=False, _resolved=False, _checked=False), 'y': TypeIdent.type(loc=Location('examples/old_grammar.lvr', 4, 12), type=BuiltinStruct(name='uint32'), _by_ref=False, _resolved=False, _checked=False)}), _by_ref=False, _resolved=False, _checked=False)}) self) __attribute__ ((always_inline));
-void rel_Widget(type_Class(loc=Location('examples/old_grammar.lvr', 7, 7), name='Widget', mbrs={'pos': TypeIdent.type(loc=Location('examples/old_grammar.lvr', 8, 14), type=Class(loc=Location('examples/old_grammar.lvr', 2, 7), name='Coord', mbrs={'x': TypeIdent.type(loc=Location('examples/old_grammar.lvr', 3, 12), type=BuiltinStruct(name='uint32'), _by_ref=False, _resolved=False, _checked=False), 'y': TypeIdent.type(loc=Location('examples/old_grammar.lvr', 4, 12), type=BuiltinStruct(name='uint32'), _by_ref=False, _resolved=False, _checked=False)}), _by_ref=False, _resolved=False, _checked=False)}) self) __attribute__ ((always_inline));
-content_Widget* cntnptr_Widget(type_Class(loc=Location('examples/old_grammar.lvr', 7, 7), name='Widget', mbrs={'pos': TypeIdent.type(loc=Location('examples/old_grammar.lvr', 8, 14), type=Class(loc=Location('examples/old_grammar.lvr', 2, 7), name='Coord', mbrs={'x': TypeIdent.type(loc=Location('examples/old_grammar.lvr', 3, 12), type=BuiltinStruct(name='uint32'), _by_ref=False, _resolved=False, _checked=False), 'y': TypeIdent.type(loc=Location('examples/old_grammar.lvr', 4, 12), type=BuiltinStruct(name='uint32'), _by_ref=False, _resolved=False, _checked=False)}), _by_ref=False, _resolved=False, _checked=False)})* selfptr) __attribute__ ((always_inline));
+typedef struct Widget /*prototype*/ *type_Widget;
+type_Widget new_Widget(content_Widget content) __attribute__ ((always_inline));
+type_Widget dflt_Widget() __attribute__ ((always_inline));
+type_Widget get_Widget(type_Widget self) __attribute__ ((always_inline));
+void drop_Widget(type_Widget self) __attribute__ ((always_inline));
+void rtn_Widget(type_Widget self) __attribute__ ((always_inline));
+void rel_Widget(type_Widget self) __attribute__ ((always_inline));
+content_Widget* cntnptr_Widget(type_Widget* selfptr) __attribute__ ((always_inline));
 type_uint32 fn_main ();
-typedef struct content_Coord{
+typedef struct Coord{
     type_uint32 mbr_x;
     type_uint32 mbr_y;
 } content_Coord;
-struct Coord {
-    RefCount rc;
-    content_Coord content;
-};
-type_Class(loc=Location('examples/old_grammar.lvr', 2, 7), name='Coord', mbrs={'x': TypeIdent.type(loc=Location('examples/old_grammar.lvr', 3, 12), type=BuiltinStruct(name='uint32'), _by_ref=False, _resolved=False, _checked=False), 'y': TypeIdent.type(loc=Location('examples/old_grammar.lvr', 4, 12), type=BuiltinStruct(name='uint32'), _by_ref=False, _resolved=False, _checked=False)}) new_Coord(content_Coord content){
-    type_Class(loc=Location('examples/old_grammar.lvr', 2, 7), name='Coord', mbrs={'x': TypeIdent.type(loc=Location('examples/old_grammar.lvr', 3, 12), type=BuiltinStruct(name='uint32'), _by_ref=False, _resolved=False, _checked=False), 'y': TypeIdent.type(loc=Location('examples/old_grammar.lvr', 4, 12), type=BuiltinStruct(name='uint32'), _by_ref=False, _resolved=False, _checked=False)}) self = (type_Class(loc=Location('examples/old_grammar.lvr', 2, 7), name='Coord', mbrs={'x': TypeIdent.type(loc=Location('examples/old_grammar.lvr', 3, 12), type=BuiltinStruct(name='uint32'), _by_ref=False, _resolved=False, _checked=False), 'y': TypeIdent.type(loc=Location('examples/old_grammar.lvr', 4, 12), type=BuiltinStruct(name='uint32'), _by_ref=False, _resolved=False, _checked=False)}))malloc(sizeof(struct Coord));
-    self->rc = 1;
-    self->content = content;
-    return self;
+type_Coord new_Coord(content_Coord content){
+    return content; /* a struct and its content is the same thing*/
 }
-type_Class(loc=Location('examples/old_grammar.lvr', 2, 7), name='Coord', mbrs={'x': TypeIdent.type(loc=Location('examples/old_grammar.lvr', 3, 12), type=BuiltinStruct(name='uint32'), _by_ref=False, _resolved=False, _checked=False), 'y': TypeIdent.type(loc=Location('examples/old_grammar.lvr', 4, 12), type=BuiltinStruct(name='uint32'), _by_ref=False, _resolved=False, _checked=False)}) dflt_Coord(){
-    return NULL;
+type_Coord dflt_Coord(){
+    return (type_Coord) {
+        .mbr_x = dflt_uint32(),
+        .mbr_y = dflt_uint32(),
+    };
 }
-type_Class(loc=Location('examples/old_grammar.lvr', 2, 7), name='Coord', mbrs={'x': TypeIdent.type(loc=Location('examples/old_grammar.lvr', 3, 12), type=BuiltinStruct(name='uint32'), _by_ref=False, _resolved=False, _checked=False), 'y': TypeIdent.type(loc=Location('examples/old_grammar.lvr', 4, 12), type=BuiltinStruct(name='uint32'), _by_ref=False, _resolved=False, _checked=False)}) get_Coord(type_Class(loc=Location('examples/old_grammar.lvr', 2, 7), name='Coord', mbrs={'x': TypeIdent.type(loc=Location('examples/old_grammar.lvr', 3, 12), type=BuiltinStruct(name='uint32'), _by_ref=False, _resolved=False, _checked=False), 'y': TypeIdent.type(loc=Location('examples/old_grammar.lvr', 4, 12), type=BuiltinStruct(name='uint32'), _by_ref=False, _resolved=False, _checked=False)}) self){
-    rtn_Coord(self);
-    return self;
+type_Coord get_Coord(type_Coord self){
+    return (type_Coord){
+        .mbr_x = get_uint32(self.mbr_x),
+        .mbr_y = get_uint32(self.mbr_y),
+    };
 }
-void drop_Coord(type_Class(loc=Location('examples/old_grammar.lvr', 2, 7), name='Coord', mbrs={'x': TypeIdent.type(loc=Location('examples/old_grammar.lvr', 3, 12), type=BuiltinStruct(name='uint32'), _by_ref=False, _resolved=False, _checked=False), 'y': TypeIdent.type(loc=Location('examples/old_grammar.lvr', 4, 12), type=BuiltinStruct(name='uint32'), _by_ref=False, _resolved=False, _checked=False)}) self){
-    rel_Coord(self);
+void drop_Coord(type_Coord self){
+    drop_uint32(self.mbr_x);
+    drop_uint32(self.mbr_y);
     return;
 }
-void rtn_Coord(type_Class(loc=Location('examples/old_grammar.lvr', 2, 7), name='Coord', mbrs={'x': TypeIdent.type(loc=Location('examples/old_grammar.lvr', 3, 12), type=BuiltinStruct(name='uint32'), _by_ref=False, _resolved=False, _checked=False), 'y': TypeIdent.type(loc=Location('examples/old_grammar.lvr', 4, 12), type=BuiltinStruct(name='uint32'), _by_ref=False, _resolved=False, _checked=False)}) self){
-    self->rc +=1;
+void rtn_Coord(type_Coord self){
     return;
 }
-void rel_Coord(type_Class(loc=Location('examples/old_grammar.lvr', 2, 7), name='Coord', mbrs={'x': TypeIdent.type(loc=Location('examples/old_grammar.lvr', 3, 12), type=BuiltinStruct(name='uint32'), _by_ref=False, _resolved=False, _checked=False), 'y': TypeIdent.type(loc=Location('examples/old_grammar.lvr', 4, 12), type=BuiltinStruct(name='uint32'), _by_ref=False, _resolved=False, _checked=False)}) self){
-    if (self == NULL){return;}
-    self->rc -= 1;
-    if (self->rc == 0){
-        rel_uint32(self->content.mbr_x);
-        rel_uint32(self->content.mbr_y);
-        free(self);
-    }
+void rel_Coord(type_Coord self){
     return;
 }
-content_Coord* cntnptr_Coord(type_Class(loc=Location('examples/old_grammar.lvr', 2, 7), name='Coord', mbrs={'x': TypeIdent.type(loc=Location('examples/old_grammar.lvr', 3, 12), type=BuiltinStruct(name='uint32'), _by_ref=False, _resolved=False, _checked=False), 'y': TypeIdent.type(loc=Location('examples/old_grammar.lvr', 4, 12), type=BuiltinStruct(name='uint32'), _by_ref=False, _resolved=False, _checked=False)})* selfptr){
-    type_Class(loc=Location('examples/old_grammar.lvr', 2, 7), name='Coord', mbrs={'x': TypeIdent.type(loc=Location('examples/old_grammar.lvr', 3, 12), type=BuiltinStruct(name='uint32'), _by_ref=False, _resolved=False, _checked=False), 'y': TypeIdent.type(loc=Location('examples/old_grammar.lvr', 4, 12), type=BuiltinStruct(name='uint32'), _by_ref=False, _resolved=False, _checked=False)}) self = *selfptr;
-    return &(self->content);
+content_Coord* cntnptr_Coord(type_Coord* selfptr){
+    return (content_Coord*) selfptr;
 }
 typedef struct content_Widget{
     type_Coord mbr_pos;
@@ -67,28 +57,28 @@ struct Widget {
     RefCount rc;
     content_Widget content;
 };
-type_Class(loc=Location('examples/old_grammar.lvr', 7, 7), name='Widget', mbrs={'pos': TypeIdent.type(loc=Location('examples/old_grammar.lvr', 8, 14), type=Class(loc=Location('examples/old_grammar.lvr', 2, 7), name='Coord', mbrs={'x': TypeIdent.type(loc=Location('examples/old_grammar.lvr', 3, 12), type=BuiltinStruct(name='uint32'), _by_ref=False, _resolved=False, _checked=False), 'y': TypeIdent.type(loc=Location('examples/old_grammar.lvr', 4, 12), type=BuiltinStruct(name='uint32'), _by_ref=False, _resolved=False, _checked=False)}), _by_ref=False, _resolved=False, _checked=False)}) new_Widget(content_Widget content){
-    type_Class(loc=Location('examples/old_grammar.lvr', 7, 7), name='Widget', mbrs={'pos': TypeIdent.type(loc=Location('examples/old_grammar.lvr', 8, 14), type=Class(loc=Location('examples/old_grammar.lvr', 2, 7), name='Coord', mbrs={'x': TypeIdent.type(loc=Location('examples/old_grammar.lvr', 3, 12), type=BuiltinStruct(name='uint32'), _by_ref=False, _resolved=False, _checked=False), 'y': TypeIdent.type(loc=Location('examples/old_grammar.lvr', 4, 12), type=BuiltinStruct(name='uint32'), _by_ref=False, _resolved=False, _checked=False)}), _by_ref=False, _resolved=False, _checked=False)}) self = (type_Class(loc=Location('examples/old_grammar.lvr', 7, 7), name='Widget', mbrs={'pos': TypeIdent.type(loc=Location('examples/old_grammar.lvr', 8, 14), type=Class(loc=Location('examples/old_grammar.lvr', 2, 7), name='Coord', mbrs={'x': TypeIdent.type(loc=Location('examples/old_grammar.lvr', 3, 12), type=BuiltinStruct(name='uint32'), _by_ref=False, _resolved=False, _checked=False), 'y': TypeIdent.type(loc=Location('examples/old_grammar.lvr', 4, 12), type=BuiltinStruct(name='uint32'), _by_ref=False, _resolved=False, _checked=False)}), _by_ref=False, _resolved=False, _checked=False)}))malloc(sizeof(struct Widget));
+type_Widget new_Widget(content_Widget content){
+    type_Widget self = (type_Widget)malloc(sizeof(struct Widget));
     self->rc = 1;
     self->content = content;
     return self;
 }
-type_Class(loc=Location('examples/old_grammar.lvr', 7, 7), name='Widget', mbrs={'pos': TypeIdent.type(loc=Location('examples/old_grammar.lvr', 8, 14), type=Class(loc=Location('examples/old_grammar.lvr', 2, 7), name='Coord', mbrs={'x': TypeIdent.type(loc=Location('examples/old_grammar.lvr', 3, 12), type=BuiltinStruct(name='uint32'), _by_ref=False, _resolved=False, _checked=False), 'y': TypeIdent.type(loc=Location('examples/old_grammar.lvr', 4, 12), type=BuiltinStruct(name='uint32'), _by_ref=False, _resolved=False, _checked=False)}), _by_ref=False, _resolved=False, _checked=False)}) dflt_Widget(){
+type_Widget dflt_Widget(){
     return NULL;
 }
-type_Class(loc=Location('examples/old_grammar.lvr', 7, 7), name='Widget', mbrs={'pos': TypeIdent.type(loc=Location('examples/old_grammar.lvr', 8, 14), type=Class(loc=Location('examples/old_grammar.lvr', 2, 7), name='Coord', mbrs={'x': TypeIdent.type(loc=Location('examples/old_grammar.lvr', 3, 12), type=BuiltinStruct(name='uint32'), _by_ref=False, _resolved=False, _checked=False), 'y': TypeIdent.type(loc=Location('examples/old_grammar.lvr', 4, 12), type=BuiltinStruct(name='uint32'), _by_ref=False, _resolved=False, _checked=False)}), _by_ref=False, _resolved=False, _checked=False)}) get_Widget(type_Class(loc=Location('examples/old_grammar.lvr', 7, 7), name='Widget', mbrs={'pos': TypeIdent.type(loc=Location('examples/old_grammar.lvr', 8, 14), type=Class(loc=Location('examples/old_grammar.lvr', 2, 7), name='Coord', mbrs={'x': TypeIdent.type(loc=Location('examples/old_grammar.lvr', 3, 12), type=BuiltinStruct(name='uint32'), _by_ref=False, _resolved=False, _checked=False), 'y': TypeIdent.type(loc=Location('examples/old_grammar.lvr', 4, 12), type=BuiltinStruct(name='uint32'), _by_ref=False, _resolved=False, _checked=False)}), _by_ref=False, _resolved=False, _checked=False)}) self){
+type_Widget get_Widget(type_Widget self){
     rtn_Widget(self);
     return self;
 }
-void drop_Widget(type_Class(loc=Location('examples/old_grammar.lvr', 7, 7), name='Widget', mbrs={'pos': TypeIdent.type(loc=Location('examples/old_grammar.lvr', 8, 14), type=Class(loc=Location('examples/old_grammar.lvr', 2, 7), name='Coord', mbrs={'x': TypeIdent.type(loc=Location('examples/old_grammar.lvr', 3, 12), type=BuiltinStruct(name='uint32'), _by_ref=False, _resolved=False, _checked=False), 'y': TypeIdent.type(loc=Location('examples/old_grammar.lvr', 4, 12), type=BuiltinStruct(name='uint32'), _by_ref=False, _resolved=False, _checked=False)}), _by_ref=False, _resolved=False, _checked=False)}) self){
+void drop_Widget(type_Widget self){
     rel_Widget(self);
     return;
 }
-void rtn_Widget(type_Class(loc=Location('examples/old_grammar.lvr', 7, 7), name='Widget', mbrs={'pos': TypeIdent.type(loc=Location('examples/old_grammar.lvr', 8, 14), type=Class(loc=Location('examples/old_grammar.lvr', 2, 7), name='Coord', mbrs={'x': TypeIdent.type(loc=Location('examples/old_grammar.lvr', 3, 12), type=BuiltinStruct(name='uint32'), _by_ref=False, _resolved=False, _checked=False), 'y': TypeIdent.type(loc=Location('examples/old_grammar.lvr', 4, 12), type=BuiltinStruct(name='uint32'), _by_ref=False, _resolved=False, _checked=False)}), _by_ref=False, _resolved=False, _checked=False)}) self){
+void rtn_Widget(type_Widget self){
     self->rc +=1;
     return;
 }
-void rel_Widget(type_Class(loc=Location('examples/old_grammar.lvr', 7, 7), name='Widget', mbrs={'pos': TypeIdent.type(loc=Location('examples/old_grammar.lvr', 8, 14), type=Class(loc=Location('examples/old_grammar.lvr', 2, 7), name='Coord', mbrs={'x': TypeIdent.type(loc=Location('examples/old_grammar.lvr', 3, 12), type=BuiltinStruct(name='uint32'), _by_ref=False, _resolved=False, _checked=False), 'y': TypeIdent.type(loc=Location('examples/old_grammar.lvr', 4, 12), type=BuiltinStruct(name='uint32'), _by_ref=False, _resolved=False, _checked=False)}), _by_ref=False, _resolved=False, _checked=False)}) self){
+void rel_Widget(type_Widget self){
     if (self == NULL){return;}
     self->rc -= 1;
     if (self->rc == 0){
@@ -97,8 +87,8 @@ void rel_Widget(type_Class(loc=Location('examples/old_grammar.lvr', 7, 7), name=
     }
     return;
 }
-content_Widget* cntnptr_Widget(type_Class(loc=Location('examples/old_grammar.lvr', 7, 7), name='Widget', mbrs={'pos': TypeIdent.type(loc=Location('examples/old_grammar.lvr', 8, 14), type=Class(loc=Location('examples/old_grammar.lvr', 2, 7), name='Coord', mbrs={'x': TypeIdent.type(loc=Location('examples/old_grammar.lvr', 3, 12), type=BuiltinStruct(name='uint32'), _by_ref=False, _resolved=False, _checked=False), 'y': TypeIdent.type(loc=Location('examples/old_grammar.lvr', 4, 12), type=BuiltinStruct(name='uint32'), _by_ref=False, _resolved=False, _checked=False)}), _by_ref=False, _resolved=False, _checked=False)})* selfptr){
-    type_Class(loc=Location('examples/old_grammar.lvr', 7, 7), name='Widget', mbrs={'pos': TypeIdent.type(loc=Location('examples/old_grammar.lvr', 8, 14), type=Class(loc=Location('examples/old_grammar.lvr', 2, 7), name='Coord', mbrs={'x': TypeIdent.type(loc=Location('examples/old_grammar.lvr', 3, 12), type=BuiltinStruct(name='uint32'), _by_ref=False, _resolved=False, _checked=False), 'y': TypeIdent.type(loc=Location('examples/old_grammar.lvr', 4, 12), type=BuiltinStruct(name='uint32'), _by_ref=False, _resolved=False, _checked=False)}), _by_ref=False, _resolved=False, _checked=False)}) self = *selfptr;
+content_Widget* cntnptr_Widget(type_Widget* selfptr){
+    type_Widget self = *selfptr;
     return &(self->content);
 }
 type_uint32 fn_main(){ 

@@ -1,8 +1,8 @@
 
-class(Coord, mbrs(
+struct(Coord, mbrs(
     mbr(x, uint32),
     mbr(y, uint32),
-)) // point is a class rn b/c structs are not yet fully implemented
+))
 
 class(Widget, mbrs(
     mbr(pos, Coord),

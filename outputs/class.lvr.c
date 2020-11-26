@@ -1,12 +1,12 @@
 typedef struct content_mod_main_Counter /*prototype*/ content_mod_main_Counter;
-typedef struct mod_main_Counter /*prototype*/ *type_Class(loc=Location('examples/class.lvr', 6, 7), name='mod_main_Counter', mbrs={'_count': TypeIdent.type(loc=Location('examples/class.lvr', 7, 17), type=BuiltinStruct(name='uint32'), _by_ref=False, _resolved=False, _checked=False)});
-type_Class(loc=Location('examples/class.lvr', 6, 7), name='mod_main_Counter', mbrs={'_count': TypeIdent.type(loc=Location('examples/class.lvr', 7, 17), type=BuiltinStruct(name='uint32'), _by_ref=False, _resolved=False, _checked=False)}) new_mod_main_Counter(content_mod_main_Counter content) __attribute__ ((always_inline));
-type_Class(loc=Location('examples/class.lvr', 6, 7), name='mod_main_Counter', mbrs={'_count': TypeIdent.type(loc=Location('examples/class.lvr', 7, 17), type=BuiltinStruct(name='uint32'), _by_ref=False, _resolved=False, _checked=False)}) dflt_mod_main_Counter() __attribute__ ((always_inline));
-type_Class(loc=Location('examples/class.lvr', 6, 7), name='mod_main_Counter', mbrs={'_count': TypeIdent.type(loc=Location('examples/class.lvr', 7, 17), type=BuiltinStruct(name='uint32'), _by_ref=False, _resolved=False, _checked=False)}) get_mod_main_Counter(type_Class(loc=Location('examples/class.lvr', 6, 7), name='mod_main_Counter', mbrs={'_count': TypeIdent.type(loc=Location('examples/class.lvr', 7, 17), type=BuiltinStruct(name='uint32'), _by_ref=False, _resolved=False, _checked=False)}) self) __attribute__ ((always_inline));
-void drop_mod_main_Counter(type_Class(loc=Location('examples/class.lvr', 6, 7), name='mod_main_Counter', mbrs={'_count': TypeIdent.type(loc=Location('examples/class.lvr', 7, 17), type=BuiltinStruct(name='uint32'), _by_ref=False, _resolved=False, _checked=False)}) self) __attribute__ ((always_inline));
-void rtn_mod_main_Counter(type_Class(loc=Location('examples/class.lvr', 6, 7), name='mod_main_Counter', mbrs={'_count': TypeIdent.type(loc=Location('examples/class.lvr', 7, 17), type=BuiltinStruct(name='uint32'), _by_ref=False, _resolved=False, _checked=False)}) self) __attribute__ ((always_inline));
-void rel_mod_main_Counter(type_Class(loc=Location('examples/class.lvr', 6, 7), name='mod_main_Counter', mbrs={'_count': TypeIdent.type(loc=Location('examples/class.lvr', 7, 17), type=BuiltinStruct(name='uint32'), _by_ref=False, _resolved=False, _checked=False)}) self) __attribute__ ((always_inline));
-content_mod_main_Counter* cntnptr_mod_main_Counter(type_Class(loc=Location('examples/class.lvr', 6, 7), name='mod_main_Counter', mbrs={'_count': TypeIdent.type(loc=Location('examples/class.lvr', 7, 17), type=BuiltinStruct(name='uint32'), _by_ref=False, _resolved=False, _checked=False)})* selfptr) __attribute__ ((always_inline));
+typedef struct mod_main_Counter /*prototype*/ *type_mod_main_Counter;
+type_mod_main_Counter new_mod_main_Counter(content_mod_main_Counter content) __attribute__ ((always_inline));
+type_mod_main_Counter dflt_mod_main_Counter() __attribute__ ((always_inline));
+type_mod_main_Counter get_mod_main_Counter(type_mod_main_Counter self) __attribute__ ((always_inline));
+void drop_mod_main_Counter(type_mod_main_Counter self) __attribute__ ((always_inline));
+void rtn_mod_main_Counter(type_mod_main_Counter self) __attribute__ ((always_inline));
+void rel_mod_main_Counter(type_mod_main_Counter self) __attribute__ ((always_inline));
+content_mod_main_Counter* cntnptr_mod_main_Counter(type_mod_main_Counter* selfptr) __attribute__ ((always_inline));
 type_uint32 fn_main ();
 typedef struct content_mod_main_Counter{
     type_uint32 mbr__count;
@@ -15,28 +15,28 @@ struct mod_main_Counter {
     RefCount rc;
     content_mod_main_Counter content;
 };
-type_Class(loc=Location('examples/class.lvr', 6, 7), name='mod_main_Counter', mbrs={'_count': TypeIdent.type(loc=Location('examples/class.lvr', 7, 17), type=BuiltinStruct(name='uint32'), _by_ref=False, _resolved=False, _checked=False)}) new_mod_main_Counter(content_mod_main_Counter content){
-    type_Class(loc=Location('examples/class.lvr', 6, 7), name='mod_main_Counter', mbrs={'_count': TypeIdent.type(loc=Location('examples/class.lvr', 7, 17), type=BuiltinStruct(name='uint32'), _by_ref=False, _resolved=False, _checked=False)}) self = (type_Class(loc=Location('examples/class.lvr', 6, 7), name='mod_main_Counter', mbrs={'_count': TypeIdent.type(loc=Location('examples/class.lvr', 7, 17), type=BuiltinStruct(name='uint32'), _by_ref=False, _resolved=False, _checked=False)}))malloc(sizeof(struct mod_main_Counter));
+type_mod_main_Counter new_mod_main_Counter(content_mod_main_Counter content){
+    type_mod_main_Counter self = (type_mod_main_Counter)malloc(sizeof(struct mod_main_Counter));
     self->rc = 1;
     self->content = content;
     return self;
 }
-type_Class(loc=Location('examples/class.lvr', 6, 7), name='mod_main_Counter', mbrs={'_count': TypeIdent.type(loc=Location('examples/class.lvr', 7, 17), type=BuiltinStruct(name='uint32'), _by_ref=False, _resolved=False, _checked=False)}) dflt_mod_main_Counter(){
+type_mod_main_Counter dflt_mod_main_Counter(){
     return NULL;
 }
-type_Class(loc=Location('examples/class.lvr', 6, 7), name='mod_main_Counter', mbrs={'_count': TypeIdent.type(loc=Location('examples/class.lvr', 7, 17), type=BuiltinStruct(name='uint32'), _by_ref=False, _resolved=False, _checked=False)}) get_mod_main_Counter(type_Class(loc=Location('examples/class.lvr', 6, 7), name='mod_main_Counter', mbrs={'_count': TypeIdent.type(loc=Location('examples/class.lvr', 7, 17), type=BuiltinStruct(name='uint32'), _by_ref=False, _resolved=False, _checked=False)}) self){
+type_mod_main_Counter get_mod_main_Counter(type_mod_main_Counter self){
     rtn_mod_main_Counter(self);
     return self;
 }
-void drop_mod_main_Counter(type_Class(loc=Location('examples/class.lvr', 6, 7), name='mod_main_Counter', mbrs={'_count': TypeIdent.type(loc=Location('examples/class.lvr', 7, 17), type=BuiltinStruct(name='uint32'), _by_ref=False, _resolved=False, _checked=False)}) self){
+void drop_mod_main_Counter(type_mod_main_Counter self){
     rel_mod_main_Counter(self);
     return;
 }
-void rtn_mod_main_Counter(type_Class(loc=Location('examples/class.lvr', 6, 7), name='mod_main_Counter', mbrs={'_count': TypeIdent.type(loc=Location('examples/class.lvr', 7, 17), type=BuiltinStruct(name='uint32'), _by_ref=False, _resolved=False, _checked=False)}) self){
+void rtn_mod_main_Counter(type_mod_main_Counter self){
     self->rc +=1;
     return;
 }
-void rel_mod_main_Counter(type_Class(loc=Location('examples/class.lvr', 6, 7), name='mod_main_Counter', mbrs={'_count': TypeIdent.type(loc=Location('examples/class.lvr', 7, 17), type=BuiltinStruct(name='uint32'), _by_ref=False, _resolved=False, _checked=False)}) self){
+void rel_mod_main_Counter(type_mod_main_Counter self){
     if (self == NULL){return;}
     self->rc -= 1;
     if (self->rc == 0){
@@ -45,8 +45,8 @@ void rel_mod_main_Counter(type_Class(loc=Location('examples/class.lvr', 6, 7), n
     }
     return;
 }
-content_mod_main_Counter* cntnptr_mod_main_Counter(type_Class(loc=Location('examples/class.lvr', 6, 7), name='mod_main_Counter', mbrs={'_count': TypeIdent.type(loc=Location('examples/class.lvr', 7, 17), type=BuiltinStruct(name='uint32'), _by_ref=False, _resolved=False, _checked=False)})* selfptr){
-    type_Class(loc=Location('examples/class.lvr', 6, 7), name='mod_main_Counter', mbrs={'_count': TypeIdent.type(loc=Location('examples/class.lvr', 7, 17), type=BuiltinStruct(name='uint32'), _by_ref=False, _resolved=False, _checked=False)}) self = *selfptr;
+content_mod_main_Counter* cntnptr_mod_main_Counter(type_mod_main_Counter* selfptr){
+    type_mod_main_Counter self = *selfptr;
     return &(self->content);
 }
 type_uint32 fn_main(){ 

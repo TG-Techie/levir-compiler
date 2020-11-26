@@ -9,7 +9,7 @@ class Pair(Protocol):
         ...
 
     @property
-    def typename(self) -> str:
+    def Type_(self) -> str:
         # subject to change
         ...
 

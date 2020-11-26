@@ -20,7 +20,7 @@ def translate_litrl(litrl:Expr) -> str:
 def translate_new(new:Expr.new) -> str:
     global translate
     return (
-        f"new_{new.type.type.name}( (content_{new.type.type.name}) " "{"
+        f"{new_(new.type)}( ({content_(new.type)}) " "{"
         f"{', '.join(translate(subexpr) for subexpr in new.cntn)}"
         "})"
     )
@@ -28,7 +28,7 @@ def translate_new(new:Expr.new) -> str:
 def translate_get(get:Expr.get) -> str:
     global translate
     return (
-        f"get_{get.type.type.name}({fromsubj.translate(get.subj)})"
+        f"{get_(get.type)}({fromsubj.translate(get.subj)})"
     )
 
 def translate_arith(arith:Expr.arith) -> str:
