@@ -37,14 +37,6 @@ fn(main, uint32, args(),
             uint32
         )
 
-        // asn(var(overwrite, uint32),
-        //     add(
-        //         get(var(overwrite, uint32), uint32),
-        //         litrl(uint32, 511),
-        //         uint32
-        //     ),
-        //     uint32
-        // )
 
         // make button
         asn(var(button, Widget),

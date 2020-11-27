@@ -53,25 +53,25 @@ type_uint32 fn_main(){
     type_mod_main_Counter var_foo = dflt_mod_main_Counter();
     type_uint32 var_foombr1 = dflt_uint32();
     type_uint32 var_foombr2 = dflt_uint32();
-    { /* assignment */
+    { /* assignment [file:'examples/class.lvr' line:9 col:17] */
         type_mod_main_Counter* target_ptr = &(var_foo);
         type_mod_main_Counter prev_value = *target_ptr;
         *target_ptr = new_mod_main_Counter( (content_mod_main_Counter) {litrl_uint32(6)});
         drop_mod_main_Counter(prev_value);
     }
-    { /* assignment */
+    { /* assignment [file:'examples/class.lvr' line:14 col:17] */
         type_uint32* target_ptr = &(var_foombr1);
         type_uint32 prev_value = *target_ptr;
         *target_ptr = get_uint32(cntnptr_mod_main_Counter(&(var_foo))->mbr__count);
         drop_uint32(prev_value);
     }
-    { /* assignment */
+    { /* assignment [file:'examples/class.lvr' line:22 col:19] */
         type_uint32* target_ptr = &(cntnptr_mod_main_Counter(&(var_foo))->mbr__count);
         type_uint32 prev_value = *target_ptr;
         *target_ptr = litrl_uint32(128);
         drop_uint32(prev_value);
     }
-    { /* assignment */
+    { /* assignment [file:'examples/class.lvr' line:27 col:17] */
         type_uint32* target_ptr = &(var_foombr2);
         type_uint32 prev_value = *target_ptr;
         *target_ptr = get_uint32(cntnptr_mod_main_Counter(&(var_foo))->mbr__count);

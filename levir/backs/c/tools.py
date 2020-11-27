@@ -6,7 +6,7 @@ from levir import front
 _TypeSpec = Union[
     front.UserType,
     front.levir_builtins.BuiltinType,
-    front.TypeIdent.type
+    front.TypeIdent.found
 ]
 
 _isref = lambda spec: isinstance(spec, front.TypeIdent) and spec.isref()

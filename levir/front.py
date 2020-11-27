@@ -33,7 +33,7 @@ class Item(DataVariable):
 @enum
 class TypeIdent:
 
-    class name:
+    class named:
         loc: Location
         name: str
         _by_ref: bool
@@ -45,7 +45,7 @@ class TypeIdent:
         def __eq__(self, other):
             return (self.isref() == other.isref()) and self.name == other.name
 
-    class type:
+    class found:
         loc         : Location
         type        : Union['UserType', levir_builtins.BuiltinType]
         _by_ref     : bool
@@ -69,12 +69,15 @@ class TypeIdent:
         def __eq__(self, other):
             return (self.isref() == other.isref()) and self.type == other.type
 
+    class infer:
+        pass
+
     @strictly
     def __new__(cls, loc:Location, obj:object, by_ref:bool):# -> 'TypeIdent':
         global str, UserType, match
         return match(obj)[
-            str      : lambda: cls.name(obj, loc, by_ref),
-            UserType : lambda: cls.type(obj, loc, by_ref),
+            str      : lambda: cls.named(obj, loc, by_ref),
+            UserType : lambda: cls.found(obj, loc, by_ref),
             ... : TypeError(f"{cls.__name__} cannot make from an object of " \
                 f"type '{type(obj).__name__}'"
             )
@@ -86,10 +89,11 @@ class TypeIdent:
     def resolvefrom(self, mod:'Module') -> Result['TypeIdent', str]:
         global TypeIdent
         return Okay(match(self)[
-            TypeIdent.name : lambda loc, name, ref: TypeIdent.type(
+            TypeIdent.named  : lambda loc, name, ref: TypeIdent.found(
                 loc, ~mod.find(name), ref
             ),
-            TypeIdent.type : lambda *_: self
+            TypeIdent.found  : lambda *_: self,
+            TypeIdent.infer : ...
         ])
 
     @classmethod
@@ -626,16 +630,27 @@ class Expr:
         @classmethod
         @strictly
         def _fromtree(cls:type, mod:Module, gettree:Tree):
-            assert len(gettree.children) == 2, unsupported_grammar(
+            assert len(gettree.children) in (1, 2), unsupported_grammar(
                 mod.filename, gettree,
-                f"found {len(gettree.children)} attribues, expected 2"
+                f"found {len(gettree.children)} attribues, expected 1 or 2"
             )
 
-            subjtree, typetree = gettree.children
+            # INFER
+            if len(gettree.children) == 2:
+                subjtree, typetree = gettree.children
+                ident = ~TypeIdent.fromtree(mod, typetree)
+            else:
+                subjtree,  = gettree.children
+                ident = TypeIdent.infer
+
+            subj = ~Subject.fromtree(mod, subjtree)
+            if isvariant(ident, TypeIdent.infer):
+                ident = subj.type
+
             return Okay(cls(
                 loc  = Location.fromtree(mod.filename, gettree),
-                subj = ~Subject.fromtree(mod, subjtree),
-                type = ~TypeIdent.fromtree(mod, typetree),
+                subj = subj,
+                type = ident,
             ))
 
     class fncall: pass
@@ -704,7 +719,7 @@ class Expr:
                 src  = reconstruct(srctree)
             ))
 
-    class arith:
+    class binop:
         loc: Location
         op: BinOp
         a: 'Expr'
@@ -752,12 +767,89 @@ class Expr:
             'mthdcall_expr' : lambda: Expr.mthdcall._fromtree(mod, exprtree),
             'new_expr'      : lambda: Expr.new._fromtree(mod, exprtree),
             'litrl_expr'    : lambda: Expr.litrl._fromtree(mod, exprtree),
-            'arith_expr'    : lambda: Expr.arith._fromtree(mod, exprtree),
+            'arith_expr'    : lambda: Expr.binop._fromtree(mod, exprtree),
             ...             : MatchError(unsupported_grammar(
                 mod.filename, exprtree,
                 f"cannot compile unknown kind of expression"
             ))
         ]
+
+@enum
+class Clause:
+    class _if:
+        loc: Location
+        cond: Expr
+        frame: Frame
+    class _elif:
+        loc: Location
+        cond: Expr
+        frame: Frame
+    class _else:
+        loc: Location
+        frame: Frame
+
+    @strictly
+    def check(self, func:Func) -> CheckResult:
+        global Clause
+        reports = set()
+
+        if isvariant(self, (Clause._if, Clause._elif)):
+            if self.cond.type.type is not levir_builtins.module.items['bool']:
+                reports.add(CheckIssue.error( self.cond.type.loc,
+                    f"if/elif condition must of type 'bool', found '{self.cond.type.type.name}'"
+                ))
+
+        # check sub objs
+        reports |= match(self)[
+            Clause._if, Clause._elif : lambda _, cond, frame: (
+                ~cond.check(func) | ~frame.check(func)
+            ),
+            Clause._else: lambda _, frame: ~frame.check(func)
+        ]
+
+        return Okay(reports)
+
+
+    @strictly
+    def resolve(self, mod:Module) -> Result[None, str]:
+        global Clause
+        match(self)[
+            Clause._if, Clause._elif : lambda _, cond, frame:(
+                ~cond.resolve(mod), ~frame.resolve(mod)
+            ),
+            Clause._else : lambda _, frame: ~frame.resolve(mod)
+        ]
+        return Okay(None)
+
+    @classmethod
+    @strictly
+    def fromtree(cls:type, mod:Module, tree:Tree) -> Result['Clause', str]:
+        global Clause
+        assert tree.data in ('if', 'elif', 'else'), unsupported_grammar(
+            mod.filename, tree,
+            f"unknown conditional clause kind '{tree.data}' "
+        )
+
+        loc = Location.fromtree(mod.filename, tree)
+
+        if len(tree.children) == 2:
+            condtree, frametree = tree.children
+            cond = ~Expr.fromtree(mod, condtree)
+            frame = ~Frame.fromtree(mod, frametree)
+        elif len(tree.children) == 1:
+            frametree, = tree.children
+            frame = ~Frame.fromtree(mod, frametree)
+        else:
+            FUCK # unreachable
+
+        return Okay(match(tree.data)[
+            'if', 'elif' : lambda: Clause._if(loc, cond, frame),
+            #'elif' : lambda: Clause._elif(loc, cond, frame),
+            'else' : lambda: Clause._else(loc, frame),
+            ... : MatchError(
+                f"how did cond clause '{tree.data}' get past the above asser"
+            )
+        ])
 
 @enum
 class Stmt:
@@ -795,7 +887,6 @@ class Stmt:
                 ))'''
             return Okay(reports)
 
-
         @strictly
         def resolve(self, mod:Module) -> Result[None, str]:
             ~self.subj.resolve(mod)
@@ -806,16 +897,27 @@ class Stmt:
         @classmethod
         @strictly
         def _fromtree(cls:type, mod:Module, asntree:Tree):
-            assert len(asntree.children) == 3, unsupported_grammar(
+            assert len(asntree.children) in (2, 3), unsupported_grammar(
                 mod.filename, asntree,
-                f"got {len(asntree.children)} attribues, expected 3"
+                f"got {len(asntree.children)} attribues, expected 2 or3"
             )
-            subjtree, exprtree, typetree = asntree.children
+            if len(asntree.children) == 3:
+                subjtree, exprtree, typetree = asntree.children
+                typeident = ~TypeIdent.fromtree(mod, typetree)
+            elif len(asntree.children) == 2:
+                subjtree, exprtree = asntree.children
+                typeident = TypeIdent.infer
+
+            # INFER
+            subj = ~Subject.fromtree(mod, subjtree)
+            if isvariant(typeident, TypeIdent.infer):
+                typeident = subj.type
+
             return cls(
                 loc  = Location.fromtree(mod.filename, asntree),
-                subj = ~Subject.fromtree(mod, subjtree),
+                subj = subj,
                 expr = ~Expr.fromtree(mod, exprtree),
-                asntype = ~TypeIdent.fromtree(mod, typetree)
+                asntype = typeident
             )
 
     class ret:
@@ -836,16 +938,29 @@ class Stmt:
         @classmethod
         @strictly
         def _fromtree(cls:type, mod:Module, rettree:Tree):
-            assert len(rettree.children) == 2, unsupported_grammar(
+            assert len(rettree.children) in (1, 2), unsupported_grammar(
                 mod.filename, rettree,
-                f"got {len(rettree.children)} attribues, expected 2"
+                f"got {len(rettree.children)} attribues, expected 1 or2"
             )
 
-            exprtree, typetree = rettree.children
+            # INFER
+            if len(rettree.children) == 2:
+                exprtree, typetree = rettree.children
+                ident = ~TypeIdent.fromtree(mod, typetree)
+            elif len(rettree.children) == 1:
+                exprtree, = rettree.children
+                ident = TypeIdent.infer
+            else:
+                FUCK
+
+            expr = ~Expr.fromtree(mod, exprtree)
+            if isvariant(ident, TypeIdent.infer):
+                ident = expr.type
+
             return cls(
                 loc  = Location.fromtree(mod.filename, rettree),
-                expr = ~Expr.fromtree(mod, exprtree),
-                rettype = ~TypeIdent.fromtree(mod, typetree),
+                expr = expr,
+                rettype = ident,
             )
 
     class brk:
@@ -854,29 +969,88 @@ class Stmt:
         loc: Location
     class loop:
         loc: Location
-    class dbg:
+    #class dbg:
+    #    loc: Location
+    #class btw:
+    #    loc: Location
+
+    class dropin:
+        # dropin is only a bootstrapping tool
         loc: Location
-    class btw:
+        lang: str
+        src: str
+
+        @strictly
+        def check(self, func:Func) -> CheckResult:
+            return Okay(set())
+
+        @strictly
+        def resolve(self, mod:Module) -> Result[None, str]:
+            return Okay(None)
+
+        @classmethod
+        @strictly
+        def fromtree(cls:type, mod:Module, tree:Tree) -> Result['Stmt.dropin', str]:
+            assert len(tree.children) == 2, unsupported_grammar(
+                mod.filename, tree,
+                f"found '{len(tree.children)}' attributes, expected 2"
+            )
+
+            langtok, srctok = tree.children
+
+            return Okay(cls(
+                loc  = Location.fromtree(mod.filename, tree),
+                lang = str(langtok).strip('"' + "'"),
+                src  = str(srctok).strip("`")
+            ))
+
+    class cond:
         loc: Location
+        clauses: Tuple[Clause]
+
+        @strictly
+        def check(self, func:Func) -> CheckResult:
+            reports = set()
+            for clause in self.clauses:
+                reports |= ~clause.check(func)
+            return Okay(reports)
+
+        @strictly
+        def resolve(self, mod:Module) -> Result[None, str]:
+            [~clause.resolve(mod) for clause in self.clauses]
+            return Okay(None)
+
+        @classmethod
+        @strictly
+        def fromtree(cls:type, mod:Module, tree:Tree) -> Result['Stmt.cond', str]:
+            assert len(tree.children), unsupported_grammar(
+                mod.filename, tree,
+                f"expected 1 or more clauses in conditional, found {len(tree.children)}"
+            )
+
+            return Okay(cls(
+                loc = Location.fromtree(mod.filename, tree),
+                clauses = tuple(
+                    ~Clause.fromtree(mod, clausetree)
+                        for clausetree in tree.children
+                )
+            ))
 
     @classmethod
     @strictly
     def fromtree(cls:type, mod:Module, tree:Tree) -> Result['Stmt', str]:
         global Stmt
-        '''if stmttree.data == 'stmt':
-            tree, = stmttree.children
-        else:
-            tree = stmttree'''
         return Okay(match(tree.data)[
-            'stmt'      : lambda: ~Stmt.fromtree(mod, tree.children[0]),
-            'asn_stmt'  : lambda: Stmt.asn._fromtree(mod, tree),
-            'ret_stmt'  : lambda: Stmt.ret._fromtree(mod, tree),
-            'brk_stmt'  : lambda: Stmt.brk._fromtree(mod, tree),
-            'cont_stmt' : lambda: Stmt.cont._fromtree(mod, tree),
-            'loop_stmt' : lambda: Stmt.loop._fromtree(mod, tree),
-            'dbg_stmt'  : lambda: Stmt.dbg._fromtree(mod, tree),
-            'btw_stmt'  : lambda: Stmt.btw._fromtree(mod, tree),
-            ...         : MatchError(
+            'stmt'        : lambda: ~Stmt.fromtree(mod, tree.children[0]),
+            'asn_stmt'    : lambda: Stmt.asn._fromtree(mod, tree),
+            'ret_stmt'    : lambda: Stmt.ret._fromtree(mod, tree),
+            'brk_stmt'    : lambda: Stmt.brk._fromtree(mod, tree),
+            'cont_stmt'   : lambda: Stmt.cont._fromtree(mod, tree),
+            'loop_stmt'   : lambda: Stmt.loop._fromtree(mod, tree),
+            'dropin_stmt' : lambda: ~Stmt.dropin.fromtree(mod, tree),
+            #'btw_stmt'    : lambda: Stmt.btw._fromtree(mod, tree),
+            'cond_stmt'   : lambda: ~Stmt.cond.fromtree(mod, tree),
+            ...           : MatchError(
                 f"no case for '{tree.data}' in constructing a stmt"
             )
         ])

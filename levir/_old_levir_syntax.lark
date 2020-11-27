@@ -2,7 +2,7 @@ start: item+
 
 // cminus cannot assign to mebers of expression. it must assing to a local
 
-item: classdef | structdef | fndef // mthddef //| genitem
+item: classdef | structdef | fndef | // mthddef //| genitem
 
 // genitem: "gen" "(" _genfor (classdef | structdef | fndef | mthddef) ")"
 // _genfor: "for" "(" list{type, ","} ")"
