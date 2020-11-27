@@ -15,25 +15,24 @@ fn main:uint32 () (
         second:Coord,
         x:uint32,
         overwrite:uint32
-    ),
-    frame(
+    ), (
         // make first and seond before button. then make button and change it
         first:Coord = Coord {
             uint32.(0),
             uint32.(0),
         }
-        <- Coord // later this `<-` fill be fored to be dropped
+        //<- Coord // later this `<-` fill be fored to be dropped
 
         second:Coord = Coord {
             uint32.(127),
             uint32.(255),
         }
-        <- Coord // tmp
+        //<- Coord // tmp
 
         // expr stmt // second:Coord -> Coord
 
         overwrite:uint32 = uint32.(511)
-        <- uint32 // tmp
+        //<- uint32 // tmp
 
         // TODO: add infix notation
         // overwrite:uint32 = (+
@@ -45,22 +44,23 @@ fn main:uint32 () (
 
         // make button
         button:Widget = Widget {
-            first:Coord -> Coord
+            first:Coord //-> Coord
         }
-        <- Widget // tmp
+        //<- Widget // tmp
 
         // set button member to second
         //                         note get and () are not required here
-        button:Widget .pos:Coord = second: Coord -> Coord
-        <- Coord // tmp
+        button:Widget .pos:Coord = second: Coord
+            // -> Coord // tmp
+        //<- Coord // tmp
 
         // set y in second to 511 throught button
         // as py: `button.pos.y = 512`
         button:Widget .pos:Coord .y:uint32 = overwrite:uint32
-            -> uint32 // tmp
-        <- uint32 // tmp
+            // -> uint32 // tmp
+        // <- uint32 // tmp
 
         return uint32.(0) // or just ret
-        <- uint32 // tmp
+        // <- uint32 // tmp
     )
 )

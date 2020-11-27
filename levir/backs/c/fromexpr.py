@@ -9,7 +9,7 @@ def translate(expr:Expr) -> str:
         Expr.litrl    : lambda *_: translate_litrl(expr),
         Expr.new      : lambda *_: translate_new(expr),
         Expr.get      : lambda *_: translate_get(expr),
-        Expr.arith    : lambda *_: translate_arith(expr),
+        Expr.binop    : lambda *_: translate_binop(expr),
         Expr.fncall   : lambda *_: translate_fncall(expr),
         Expr.mthdcall : lambda *_: translate_mthdcall(expr),
     ]
@@ -31,9 +31,9 @@ def translate_get(get:Expr.get) -> str:
         f"{get_(get.type)}({fromsubj.translate(get.subj)})"
     )
 
-def translate_arith(arith:Expr.arith) -> str:
+def translate_binop(binop:Expr.binop) -> str:
     global translate
     return (
-        f"{arith.op}_{arith.a.type.type.name}_{arith.b.type.type.name}"
-            f"({translate(arith.a)}, {translate(arith.b)})"
+        f"{binop.op}_{binop.a.type.type.name}_{binop.b.type.type.name}"
+            f"({translate(binop.a)}, {translate(binop.b)})"
     )

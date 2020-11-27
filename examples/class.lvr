@@ -1,18 +1,6 @@
-// class Counter:
-//     _count: uint32
-//     def inc(self):
-//         self._count = self._count + 1
-
 class(mod_main_Counter, mbrs(
     mbr(_count, uint32)
 ))
-
-// def main () -> uint32:
-//      foo = Counter{_count:6u32}
-//      foombr1 = foo._count
-//      foo._count = 128
-//      foombr2 = foo._count
-//      return foombr2
 
 fn(main, uint32,
     args(),
@@ -45,4 +33,4 @@ fn(main, uint32,
     )
 )
 
-// fn(selfproxytest, uint32, )
+// fn(selfproxytest, uint32, ) 

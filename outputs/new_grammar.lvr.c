@@ -107,37 +107,37 @@ type_uint32 fn_main(){
     type_Coord var_second = dflt_Coord();
     type_uint32 var_x = dflt_uint32();
     type_uint32 var_overwrite = dflt_uint32();
-    { /* assignment */
+    { /* assignment [file:'examples/new_grammar.lvr' line:20 col:9] */
         type_Coord* target_ptr = &(var_first);
         type_Coord prev_value = *target_ptr;
         *target_ptr = new_Coord( (content_Coord) {litrl_uint32(0)});
         drop_Coord(prev_value);
     }
-    { /* assignment */
+    { /* assignment [file:'examples/new_grammar.lvr' line:26 col:9] */
         type_Coord* target_ptr = &(var_second);
         type_Coord prev_value = *target_ptr;
         *target_ptr = new_Coord( (content_Coord) {litrl_uint32(127)});
         drop_Coord(prev_value);
     }
-    { /* assignment */
+    { /* assignment [file:'examples/new_grammar.lvr' line:34 col:9] */
         type_uint32* target_ptr = &(var_overwrite);
         type_uint32 prev_value = *target_ptr;
         *target_ptr = litrl_uint32(511);
         drop_uint32(prev_value);
     }
-    { /* assignment */
+    { /* assignment [file:'examples/new_grammar.lvr' line:46 col:9] */
         type_Widget* target_ptr = &(var_button);
         type_Widget prev_value = *target_ptr;
         *target_ptr = new_Widget( (content_Widget) {get_Coord(var_first)});
         drop_Widget(prev_value);
     }
-    { /* assignment */
+    { /* assignment [file:'examples/new_grammar.lvr' line:53 col:9] */
         type_Coord* target_ptr = &(cntnptr_Widget(&(var_button))->mbr_pos);
         type_Coord prev_value = *target_ptr;
         *target_ptr = get_Coord(var_second);
         drop_Coord(prev_value);
     }
-    { /* assignment */
+    { /* assignment [file:'examples/new_grammar.lvr' line:59 col:9] */
         type_uint32* target_ptr = &(cntnptr_Coord(&(cntnptr_Widget(&(var_button))->mbr_pos))->mbr_y);
         type_uint32 prev_value = *target_ptr;
         *target_ptr = get_uint32(var_overwrite);

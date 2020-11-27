@@ -7,6 +7,7 @@ checks = (
     'struct.lvr',
     'old_grammar.lvr',
     'new_grammar.lvr',
+    'cond_old.lvr',
 )
 
 for filename in checks:

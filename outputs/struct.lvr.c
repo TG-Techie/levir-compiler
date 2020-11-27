@@ -46,31 +46,31 @@ type_float64 fn_main(){
     type_Point var_copy = dflt_Point();
     type_float64 var_xinit = dflt_float64();
     type_float64 var_xcopy = dflt_float64();
-    { /* assignment */
+    { /* assignment [file:'examples/struct.lvr' line:14 col:17] */
         type_Point* target_ptr = &(var_init);
         type_Point prev_value = *target_ptr;
         *target_ptr = new_Point( (content_Point) {litrl_float64(0.0), litrl_float64(0.0)});
         drop_Point(prev_value);
     }
-    { /* assignment */
+    { /* assignment [file:'examples/struct.lvr' line:21 col:17] */
         type_Point* target_ptr = &(var_copy);
         type_Point prev_value = *target_ptr;
         *target_ptr = get_Point(var_init);
         drop_Point(prev_value);
     }
-    { /* assignment */
+    { /* assignment [file:'examples/struct.lvr' line:26 col:19] */
         type_float64* target_ptr = &(cntnptr_Point(&(var_copy))->mbr_x);
         type_float64 prev_value = *target_ptr;
         *target_ptr = litrl_float64(7.0);
         drop_float64(prev_value);
     }
-    { /* assignment */
+    { /* assignment [file:'examples/struct.lvr' line:31 col:17] */
         type_float64* target_ptr = &(var_xinit);
         type_float64 prev_value = *target_ptr;
         *target_ptr = get_float64(cntnptr_Point(&(var_init))->mbr_x);
         drop_float64(prev_value);
     }
-    { /* assignment */
+    { /* assignment [file:'examples/struct.lvr' line:35 col:17] */
         type_float64* target_ptr = &(var_xcopy);
         type_float64 prev_value = *target_ptr;
         *target_ptr = get_float64(cntnptr_Point(&(var_copy))->mbr_x);

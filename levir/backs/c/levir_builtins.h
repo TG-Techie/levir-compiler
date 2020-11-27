@@ -1,12 +1,13 @@
 #include <stdlib.h>
 #include <stdint.h>
+#include <stdbool.h>
 
 // TODO: auto generate macros for each individual possible operation and type.
 //  this leaves the definition of optionals (etc) and checkedcasting into a
 //  lang implementor issue.
 
 #define number_template(typename, nativetype) \
-    typedef struct typename { nativetype native; } type_##typename; \
+    typedef struct { nativetype native; } type_##typename; \
     type_##typename __attribute__((always_inline)) dflt_##typename () \
         { return (type_##typename){0}; } \
     type_##typename __attribute__((always_inline)) get_##typename (type_##typename self) \
@@ -31,6 +32,36 @@
     type_##totype cast_##fromtype##_to_##totype (type_##fromtype val) { \
         return (type_##totype) { val.native };\
     }
+
+
+typedef struct {
+    bool native;
+} type_bool;
+
+// literal definition
+bool False = false;
+bool True = true;
+
+type_bool __attribute__((always_inline)) litrl_bool(bool val) {
+    return (type_bool){val};
+}
+type_bool __attribute__((always_inline)) dflt_bool() {
+    return (type_bool){false};
+}
+type_bool __attribute__((always_inline)) get_bool(type_bool self) {
+    return self; // copy
+}
+void __attribute__((always_inline)) drop_bool(type_bool self) {
+    return;
+}
+void __attribute__((always_inline)) rtn_bool(type_bool self) {
+    return;
+}
+void __attribute__((always_inline)) rel_bool(type_bool self) {
+    return;
+}
+
+
 
 // bases
 typedef uint64_t RefCount;

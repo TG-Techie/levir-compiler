@@ -11,7 +11,6 @@ from levir.lexer_parser import (
     unsupported_grammar
 )
 
-
 class BuiltinType(DataVariable):
     name : str
 
@@ -60,6 +59,9 @@ class BuiltinStruct(BuiltinType):
 module = BuiltinModule()
 
 builtin_items = (
+    BuiltinStruct('usize'),
+    BuiltinStruct('RefCount'),
+
     BuiltinStruct('bool'),
 
     BuiltinStruct('int8'),
@@ -71,8 +73,6 @@ builtin_items = (
     BuiltinStruct('uint16'),
     BuiltinStruct('uint32'),
     BuiltinStruct('uint64'),
-
-    BuiltinStruct('usize'),
 
     BuiltinStruct('float32'),
     BuiltinStruct('float64'),
