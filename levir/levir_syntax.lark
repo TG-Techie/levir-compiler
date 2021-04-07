@@ -1,8 +1,14 @@
 start: item+
 
+// front -> middle -> tout -> back
+//  this version of the levir compiler does not have the middle layer
+//  instead the middle goes right to tout, this being wile loops, etc
+//  are translated to loops wiht ifs, etc. where in the future (and for macros)
+//  the middle layer will need to be there to spearter teh tout and the front
+
 // cminus cannot assign to mebers of expression. it must assing to a local
 
-item: classdef | structdef | fndef // mthddef //| genitem
+item: classdef | structdef | traitdef | fndef
 
 // genitem: "gen" "(" _genfor (classdef | structdef | fndef | mthddef) ")"
 // _genfor: "for" "(" list{type, ","} ")"
@@ -10,122 +16,113 @@ item: classdef | structdef | fndef // mthddef //| genitem
 list{val}: "(" (val ("," val)* ","?)? ")"
 seq{val}: val+
 
+classdef:  "class"  typename supers "(" mbrs_def mthds_def ")"
+structdef: "struct" typename supers "(" mbrs_def mthds_def ")"
+traitdef:  "trait"  typename supers "(" mbrs_def mthds_def ")" // ie also protocol
 
-classdef: "class" "("  name "," mbrs ")"
-        | "class" name "(" mbrs ")"
-structdef: "struct" "(" name "," mbrs ")"
-         | "struct" name "(" mbrs ")"
-fndef: "fn" "(" fnname "," rettype "," args "," (locals|meh) "," frame ")"
-     | "fn"  fnname ":" rettype args "(" (locals|meh) "," frame ")"
-     //| "fn" fnname args "->" rettype "(" locals "," frame ")"
-//mthddef: "mthd" "(" outtype "," name "," rettype "," args "," locals "," frame ")"
+// reserded for later // typedef:   "type"   typename supers "(" mbrs_def mthds_def ")" // is this mixin?
 
-frame: "frame"? "(" stmt+ ")"
+mbrs_def: seq{mbrdef}?
+mbrdef: name ":" itemspec
+
+supers: (":" itemspec ("," itemspec)* ","?)? | ("(" list{itemspec} ")")?
+
+mthds_def: seq{mthddef}?
+
+fndef:   "fn"        fnname   _fnargs _retspec block
+mthddef: "fn"|"mthd" mthdname _fnargs _retspec block
+_retspec: ("->"? itemspec)?
+
+// the _ inlines this so there isn't nesting
+_fnargs: list{argdef}
+// mthdargs: "(" "self" (":" "Self")? ("," argdef)*  ","? ")"
+argdef: name ":" itemspec
 
 
-// info sets
-mbrs: "mbrs" list{mbr}
-    | seq{mbr}
-mbr: "mbr" "(" mbrname "," type ")"
-   | "." mbrname ":" type
+block: "(" stmt+ ")" // INDENT stmt+ DEDENT
 
-args: "args"? list{arg}
-arg: "arg" "(" argname "," type ")"
-   | argname ":" type
+_subject: mbrof | var //| selfsubj
+var: name (":" itemspec)?
+// selfsubj: self (":" selftype)? // replaced with reference copy
+mbrof: var mbrs
 
-locals: "locals" list{lcl}
-lcl: "lcl" "(" lclname "," type ")"
-   | lclname ":" type
-
-subject: var | mbrof
-var: "var" "(" varname "," vartype")"
-   | varname ":" vartype
-mbrof: "mbrof" "(" varname "," vartype "," (mbr | mbrs) ")"
-     | varname ":" vartype (mbr | mbrs)
+mbrs: ("." name)+
 
 // statments
-stmt: asn_stmt      | ret_stmt      | brk_stmt
-    | cont_stmt     | loop_stmt   //  | dbg_stmt
-    | expr_stmt     | rtn_stmt      | rel_stmt
-    | btw_stmt      | cond_stmt
-    | dropin_stmt
+stmt: asn_stmt      | ret_stmt      | brk_stmt //| decl_stmt
+    | cont_stmt     | loop_stmt
+    | expr_stmt     | cond_stmt
+    | dropin_stmt   | unreachable_stmt
+    // | rtn_stmt      | rel_stmt // remove these later
 
-asn_stmt: "asn" "(" subject "," expr "," type ")"
-        | subject "=" expr
+asn_stmt: _subject "=" expr
+decl_stmt: (local | global) list{var}
 
-ret_stmt:  "ret" "(" expr "," type ")"
-        | "return" expr
-brk_stmt:  "brk" | "break"
-cont_stmt: "cont" | "continue"
-loop_stmt: "loop" "(" stmt* ")"
+ret_stmt: "return" expr
+brk_stmt: "break"
+cont_stmt: "continue"
+loop_stmt: "loop" "always:" block
+expr_stmt: expr // does checks for unwrapped optionals / results etc
 
-rtn_stmt: "rtn" "(" subject ")"
-        | "rtn" subject
-rel_stmt: "rel" "(" subject ")"
-        | "rel" subject
-
-expr_stmt: expr
+unreachable_stmt: ("$"|"!") ("FUCK"|"SHIT"|"unreachable") ( "(" STRING ")" )?
 
 cond_stmt:  if elif* else?
-if: "if" "(" expr "," frame ")"
-        | "if" expr frame
-elif: "elif" "(" expr "," frame ")"
-          | "elif" expr frame
-else: "else" "(" frame ")"
-          | "else" frame
+if: "if" "(" expr "," block ")"
+        | "if" expr block
+elif: "elif" "(" expr "," block ")"
+          | "elif" expr block
+else: "else" "(" block ")"
+          | "else" block
 
-btw_stmt: "btw" list{STRING} // turns into STRING? ;
-dropin_stmt: "dropin" "(" STRING "," CODE ")"
-CODE: SINGLECODE | MULTICODE
-SINGLECODE: "`" /[^`\n]+/ "`"
-MULTICODE: "```" /[^`]+/ "```"
+rtn_stmt: "$" "rtn" _subject
+rel_stmt: "$" "rel" _subject
+dropin_stmt: dropin
 
 // expressions
 
 // duplicated to make () easier
-expr:  get_expr     //| call_expr //fncall_expr    | mthdcall_expr
-      | new_expr    | litrl_expr     //| ref_expr
-      | op_expr     | rc_expr
- // |("("( get_expr    | call_expr //fncall_expr    | mthdcall_expr
- //      | new_expr    | litrl_expr     //| ref_expr
- //      | op_expr     | rc_expr                           )")")
+expr:   get_expr    | itemcall_expr | mthdcall_expr
+      | new_expr    | litrl_expr    | ref_expr
+      | or_expr     | and_expr      | not_expr
+      | sugar_expr  | paren_expr
+      | dropin_expr // | rc_expr  // compiler impl
 
-get_expr: "get" "(" subject "," type ")"
-        |  subject //("->" type)?
-//ref_expr: "ref" "(" subject "," type ")"
+get_expr: _subject //("->" type)?
+//ref_expr: "ref" "(" _subject "," type ")"
 
-call_expr: _dot_call | _single_call
+paren_expr: "(" expr ")"
+ref_expr: ref "(" expr ")"
 
-_single_call: name call_params
-_dot_call: subject "." mthdname call_params
+itemcall_expr: itemspec call_params
+mthdcall_expr: _subject "." mthdname call_params
 
 call_params: list{expr}
 
-new_expr: "new" "(" type "," cntn ")"
-        | type cntn
+new_expr: itemspec "{" cntn? "}"
+cntn: "." newmbr (",""." newmbr)* ","?
+newmbr: name "=" expr
+// cntn: _new_ordered_cntn_list // | _new_named_cntn_list
+// _new_ordered_cntn_list: "{" expr ("," expr)* ","? "}"
+// // _new_named_cntn_list:   "{" _new_mbr ("," _new_mbr)* ","? "}"
+// // _new_mbr: mbr "=" expr
 
-cntn: "cntn" list{expr}
-    | _new_ordered_cntn_list
-    | _new_named_cntn_list
-_new_ordered_cntn_list: "{" expr ("," expr)* ","? "}"
-_new_named_cntn_list:   "{" _new_mbr ("," _new_mbr)* ","? "}"
-_new_mbr: mbr "=" expr
-// TODO: add named new syntax
+litrl_expr: itemspec "." "(" literal? ")"
+         // | literal
 
-litrl_expr: "litrl" "(" type "," literal ")"
-          | type "." "(" literal ")"
-          | literal
+dropin_expr: dropin
+// rc_expr: "$" "rc" "." "(" _subject ")" // implicit usize return type
+or_expr: expr "or" expr
+and_expr: expr "and" expr
+not_expr: "not" expr
 
-rc_expr: "rc" "." "(" subject ")" // implicit usize return type
+// py ops
+is_expr: expr "is" expr
+is_not_expr: expr "is" "not" expr
 
-triop{l_op, r_op}: expr l_op expr r_op expr
-binop{op}: expr op expr
-         | "(" op expr expr+ ")"
-uniop{op}: op expr
-
-op_expr: binop{or} | binop{and} | uniop{not}
-       | triop{cmp_op, cmp_op}
-       | binop{cmp_op}
+sugar_expr: opsugar | slice_sugar | getitem_sugar
+getitem_sugar: _subject "[" expr "]"
+slice_sugar: _subject "[" expr ":" expr "]"
+opsugar: binop{cmp_op}
        | binop{binary_op}
        | binop{add} | binop{sub}
        | binop{chev}
@@ -134,11 +131,40 @@ op_expr: binop{or} | binop{and} | uniop{not}
        | uniop{bwnot}
        | binop{pow}
 
-or: "or"
-and: "and"
-not: "not"
+uniop{op}: op expr
+binop{op}: expr op expr // | "(" op expr expr+ ")"
+triop{l_op, r_op}: expr l_op expr r_op expr
 
-py_op: "is" -> is | "is" "not" -> is_not   | "in" -> in | "not" "in" -> not_in
+
+// named idents (for clarity)
+
+name: IDENT
+infer: "_"
+meh: "_"
+
+typename: IDENT
+fnname: IDENT
+mthdname: IDENT
+
+itemspec: (infer | ref modpath name gen)?
+!ref: "&"?
+modpath: (name ".")*
+gen: ("[" itemspec ("," itemspec)* "]")?
+
+// type_promo: _class_promo | _struct_promo // promotion
+//     // turns plain type into a class or struct
+// _class_promo: "class"  "(" itempath ")"
+// _struct_promo: "struct" "(" itempath ")"
+
+literal: STRING | LONGSTRING | FLOAT | INT | TRUE | FALSE | NONE
+
+dropin: "$" "dropin" STRING "(" CODE ")"
+CODE: SINGLECODE+ | MULTICODE
+SINGLECODE: "`" /[^`\n]+/ "`"
+MULTICODE: "```" /[^`]+/ "```"
+
+
+py_op: "in" -> in | "not" "in" -> not_in
 cmp_op:  "<" -> lt | "<=" -> le |  ">" -> gt | ">=" -> ge | "==" -> eq | "!=" -> ne
 binary_op: "|" -> bwor | "^" -> bwxor | "&" -> bwand
 add: "+"
@@ -148,30 +174,15 @@ factor_op: "*" -> mul | "/" -> div | "%" -> mod | "//" -> fdiv
 bwnot: "~"
 pow: "**"
 
-// named idents (for clarity)
-meh: "_"
-name: IDENT
+// keyword reservations
+local: "local" // | "lcl"
+global: "global" // | "gbl"
+// self: "self"
+// selftype: "Self"
+some: "Some" | "some"
 
-type: _ref? IDENT
-_ref : "&"
-
-mbrtype: type
-mbrname: IDENT
-
-vartype: type
-varname:IDENT
-
-argname: IDENT
-lclname: IDENT
-
-fnname: IDENT
-mthdname: IDENT
-rettype: type
-
-literal: STRING | LONGSTRING | FLOAT | INT | TRUE | FALSE
-
-DBG_IDENT: /dbg_[_A-z0-9]*/
 IDENT: /[_A-z][_A-z0-9]*/
+REF: "&"
 
 STRING: /("(?!"").*?(?<!\\)(\\\\)*?"|'(?!'').*?(?<!\\)(\\\\)*?')/i
 LONGSTRING: /(""".*?(?<!\\)(\\\\)*?"""|'''.*?(?<!\\)(\\\\)*?''')/is
@@ -179,6 +190,7 @@ FLOAT: /((\d+\.\d*|\.\d+)(e[-+]?\d+)?|\d+(e[-+]?\d+))/i
 INT: /[0-9]+/i
 TRUE: "True"
 FALSE: "False"
+NONE: "none"
 
 %ignore COMMENT
 // %ignore C_MACRO
