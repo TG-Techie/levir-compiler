@@ -1,6 +1,6 @@
 import sys
 
-import levir
+import levir1
 
 checks = (
     "class.lvr",
@@ -15,5 +15,5 @@ checks = (
 for filename in checks:
     with open(f"examples/{filename}", "r") as file:
         with open(f"outputs/{filename}.c", "w") as output:
-            mod = levir.translate_file(file, output)
+            mod = levir1.translate_file(file, output)
     print(f"done with '{filename}' check")
