@@ -8,59 +8,57 @@ class Widget (
     .pos:Coord
 )
 
-fn main:uint32 () (
-    locals(
-        button:Widget,
-        first:Coord,
-        second:Coord,
-        x:uint32,
-        overwrite:uint32
-    ), (
-        // make first and seond before button. then make button and change it
-        first:Coord = Coord {
-            uint32.(0),
-            uint32.(0),
-        }
-        //<- Coord // later this `<-` fill be fored to be dropped
+fn main:uint32 () $(
+    button:Widget,
+    first:Coord,
+    second:Coord,
+    x:uint32,
+    overwrite:uint32
+), (
+    // make first and seond before button. then make button and change it
+    first:Coord = Coord {
+        uint32.(0),
+        uint32.(0),
+    }
+    //<- Coord // later this `<-` fill be fored to be dropped
 
-        second:Coord = Coord {
-            uint32.(127),
-            uint32.(255),
-        }
-        //<- Coord // tmp
+    second:Coord = Coord {
+        uint32.(127),
+        uint32.(255),
+    }
+    //<- Coord // tmp
 
-        // expr stmt // second:Coord -> Coord
+    // expr stmt // second:Coord -> Coord
 
-        overwrite:uint32 = uint32.(511)
-        //<- uint32 // tmp
+    overwrite:uint32 = uint32.(511)
+    //<- uint32 // tmp
 
-        // TODO: add infix notation
-        // overwrite:uint32 = (+
-        //     overwrite:uint32 -> uint32
-        //     litrl(uint32, 512)
-        //     -> uint32
-        // )
-        // <- uint32 // tmp
+    // TODO: add infix notation
+    // overwrite:uint32 = (+
+    //     overwrite:uint32 -> uint32
+    //     litrl(uint32, 512)
+    //     -> uint32
+    // )
+    // <- uint32 // tmp
 
-        // make button
-        button:Widget = Widget {
-            first:Coord //-> Coord
-        }
-        //<- Widget // tmp
+    // make button
+    button:Widget = Widget {
+        first:Coord //-> Coord
+    }
+    //<- Widget // tmp
 
-        // set button member to second
-        //                         note get and () are not required here
-        button:Widget .pos:Coord = second: Coord
-            // -> Coord // tmp
-        //<- Coord // tmp
+    // set button member to second
+    //                         note get and () are not required here
+    button:Widget .pos:Coord = second: Coord
+        // -> Coord // tmp
+    //<- Coord // tmp
 
-        // set y in second to 511 throught button
-        // as py: `button.pos.y = 512`
-        button:Widget .pos:Coord .y:uint32 = overwrite:uint32
-            // -> uint32 // tmp
-        // <- uint32 // tmp
+    // set y in second to 511 throught button
+    // as py: `button.pos.y = 512`
+    button:Widget .pos:Coord .y:uint32 = overwrite:uint32
+        // -> uint32 // tmp
+    // <- uint32 // tmp
 
-        return uint32.(0) // or just ret
-        // <- uint32 // tmp
-    )
+    return uint32.(0) // or just ret
+    // <- uint32 // tmp
 )
