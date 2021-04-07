@@ -81,7 +81,7 @@ dropin_stmt: dropin
 // expressions
 
 // duplicated to make () easier
-expr:   get_expr    | itemcall_expr | mthdcall_expr
+expr:   get_expr    | itemcall_sugar | mthdcall_expr
       | new_expr    | litrl_expr    | ref_expr
       | or_expr     | and_expr      | not_expr
       | sugar_expr  | paren_expr
@@ -93,7 +93,7 @@ get_expr: _subject //("->" type)?
 paren_expr: "(" expr ")"
 ref_expr: ref "(" expr ")"
 
-itemcall_expr: itemspec call_params
+itemcall_sugar: itemspec call_params
 mthdcall_expr: _subject "." mthdname call_params
 
 call_params: list{expr}
