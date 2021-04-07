@@ -63,6 +63,31 @@ void __attribute__((always_inline)) rel_Bool(type_Bool self) {
 }
 
 
+// void
+typedef enum {_lvr_void} type_Void;
+
+type_Void __attribute__((always_inline)) litrl_Void(int _) {
+    return (type_Void){_lvr_void};
+}
+type_Void __attribute__((always_inline)) dflt_Void(void) {
+    return (type_Void){_lvr_void};
+}
+type_Void __attribute__((always_inline)) get_Void(type_Void self) {
+    return self; // copy
+}
+void __attribute__((always_inline)) drop_Void(type_Void self) {
+    return;
+}
+void __attribute__((always_inline)) rtn_Void(type_Void self) {
+    return;
+}
+void __attribute__((always_inline)) rel_Void(type_Void self) {
+    return;
+}
+
+
+
+
 
 // bases
 typedef uint64_t RefCount;

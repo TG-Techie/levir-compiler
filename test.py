@@ -8,6 +8,8 @@ checks = (
     "old_grammar.lvr",
     "new_grammar.lvr",
     "cond_old.lvr",
+    "struct.lvr",
+    # "methods.lvr",
 )
 
 for filename in checks:
