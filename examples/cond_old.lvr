@@ -1,16 +1,16 @@
 
 fn(main, uint32, args(),
     locals(
-        lcl(cond1, bool),
-        lcl(cond2, bool),
-        lcl(cond3, bool)
+        lcl(cond1, Bool),
+        lcl(cond2, Bool),
+        lcl(cond3, Bool)
     ),
     frame(
-        asn(var(cond1, bool),
-            litrl(bool, True),
-            bool
+        asn(var(cond1, Bool),
+            litrl(Bool, True),
+            Bool
         )
-        if(get(var(cond1, bool), bool),
+        if(get(var(cond1, Bool), Bool),
             frame(
                 dropin('c', `puts("True")`)
             )

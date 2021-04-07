@@ -1,4 +1,4 @@
-from . import env # includes enumly
+from . import env  # includes enumly
 from .env import *
 
 from . import matching
@@ -9,8 +9,9 @@ from ._tools import *
 
 __all__ = env.__all__ + matching.__all__ + _tools.__all__
 
+
 def test(print=print):
-    printdent = lambda *args: print('    ', *args)
+    printdent = lambda *args: print("    ", *args)
 
     env.test(printdent)
     matching.test(printdent)

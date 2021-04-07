@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <stdint.h>
 #include <stdbool.h>
+#include <stdio.h>
 
 // TODO: auto generate macros for each individual possible operation and type.
 //  this leaves the definition of optionals (etc) and checkedcasting into a
@@ -36,28 +37,28 @@
 
 typedef struct {
     bool native;
-} type_bool;
+} type_Bool;
 
 // literal definition
-bool False = false;
-bool True = true;
+const bool False = false;
+const bool True = true;
 
-type_bool __attribute__((always_inline)) litrl_bool(bool val) {
-    return (type_bool){val};
+type_Bool __attribute__((always_inline)) litrl_Bool(bool val) {
+    return (type_Bool){val};
 }
-type_bool __attribute__((always_inline)) dflt_bool() {
-    return (type_bool){false};
+type_Bool __attribute__((always_inline)) dflt_Bool() {
+    return (type_Bool){false};
 }
-type_bool __attribute__((always_inline)) get_bool(type_bool self) {
+type_Bool __attribute__((always_inline)) get_Bool(type_Bool self) {
     return self; // copy
 }
-void __attribute__((always_inline)) drop_bool(type_bool self) {
+void __attribute__((always_inline)) drop_Bool(type_Bool self) {
     return;
 }
-void __attribute__((always_inline)) rtn_bool(type_bool self) {
+void __attribute__((always_inline)) rtn_Bool(type_Bool self) {
     return;
 }
-void __attribute__((always_inline)) rel_bool(type_bool self) {
+void __attribute__((always_inline)) rel_Bool(type_Bool self) {
     return;
 }
 
