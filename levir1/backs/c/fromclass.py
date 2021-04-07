@@ -1,8 +1,8 @@
 from envly import *
 from strictly import *
 
-from levir import front
-from levir.front import Module, Class
+from levir1 import front
+from levir1.front import Module, Class
 from .tools import *
 
 

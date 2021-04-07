@@ -3,12 +3,12 @@ import sys
 import levir1
 
 checks = (
-    "class.lvr",
-    "struct.lvr",
-    "old_grammar.lvr",
-    "new_grammar.lvr",
-    "cond_old.lvr",
-    "struct.lvr",
+    "class.lv1",
+    "struct.lv1",
+    "old_grammar.lv1",
+    "new_grammar.lv1",
+    "cond_old.lv1",
+    "struct.lv1",
     # "methods.lvr",
 )
 

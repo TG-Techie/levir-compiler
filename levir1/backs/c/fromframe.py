@@ -1,6 +1,6 @@
 from strictly import *
-from levir import front
-from levir.front import Frame, Stmt
+from levir1 import front
+from levir1.front import Frame, Stmt
 from .tools import *
 from . import fromstmt
 

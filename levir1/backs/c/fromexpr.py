@@ -1,6 +1,6 @@
 from envly import *
-from levir import front
-from levir.front import Expr, BinOp
+from levir1 import front
+from levir1.front import Expr, BinOp
 from .tools import *
 from . import fromsubj
 

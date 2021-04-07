@@ -1,7 +1,7 @@
 from envly import *
 from strictly import *
 from typing import *
-from levir import front
+from levir1 import front
 
 _TypeSpec = Union[
     front.UserType, front.levir_builtins.BuiltinType, front.TypeIdent.found

@@ -1,6 +1,6 @@
 from strictly import *
 
-from levir import front
+from levir1 import front
 from .tools import *
 
 # from . import fromstmt

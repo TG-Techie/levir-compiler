@@ -8,7 +8,7 @@ from envly._data_variable import (
     _FactoryField,
 )
 
-from levir.lexer_parser import (
+from levir1.lexer_parser import (
     Location,
     Tree,
     Token,
@@ -293,7 +293,7 @@ class UserType(Item):
         assert len(typetree.children) == 2, unsupported(
             mod.filename,
             typetree,
-            f"this version of levir only supports "
+            f"this version of levir1 only supports "
             f" 2 trees, found {len(typetree.children)}",
         )
 

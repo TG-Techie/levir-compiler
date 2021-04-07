@@ -3,8 +3,8 @@ from envly import *
 
 from .tools import *
 
-from levir import front
-from levir.front import Subject
+from levir1 import front
+from levir1.front import Subject
 from strictly import *
 
 

@@ -3,9 +3,9 @@ from envly import *
 from typing import *
 from envly._data_variable import DataVariable, _DerivedField, _FactoryField
 
-from levir.interfaces import Member
+from levir1.interfaces import Member
 
-from levir.lexer_parser import (
+from levir1.lexer_parser import (
     Location,
     Tree,
     Token,
@@ -69,7 +69,7 @@ builtin_items = (
     # no syre if these
     BuiltinStruct("usize"),
     BuiltinStruct("RefCount"),
-    # levir sized bool
+    # levir1 sized bool
     BuiltinStruct("Bool"),
     # TODO: rename to i8 ... i64
     BuiltinStruct("int8"),

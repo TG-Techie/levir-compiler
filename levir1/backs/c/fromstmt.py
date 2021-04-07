@@ -1,7 +1,7 @@
 from envly import *
 from strictly import *
-from levir import front
-from levir.front import Stmt, Subject, Clause
+from levir1 import front
+from levir1.front import Stmt, Subject, Clause
 from .tools import *
 from . import fromsubj, fromexpr, fromframe
 

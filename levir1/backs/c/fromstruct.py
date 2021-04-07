@@ -1,8 +1,8 @@
 from envly import *
 from strictly import *
 
-from levir import front
-from levir.front import Module, Struct
+from levir1 import front
+from levir1.front import Module, Struct
 from .tools import *
 
 
