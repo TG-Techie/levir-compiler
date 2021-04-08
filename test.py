@@ -10,6 +10,7 @@ checks = (
     "cond_old.lv1",
     "struct.lv1",
     "cond_new.lv1",
+    "trycalls.lv1",
     # "methods.lv1",
 )
 

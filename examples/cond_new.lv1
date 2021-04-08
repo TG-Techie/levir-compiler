@@ -1,0 +1,10 @@
+
+fn main:u32 () $( cond1: Bool, cond2: Bool, cond3: Bool)(
+    cond1:Bool = Bool.(True)
+    if cond1:Bool (
+        dropin('c', `puts("True")`)
+    ) else (
+        dropin('c', `puts("False")`)
+    )
+    return u32.(0)
+)
