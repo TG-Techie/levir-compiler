@@ -1,45 +1,45 @@
 
 class Coord (
-    .x:uint32
-    .y:uint32
+    .x:u32
+    .y:u32
 ) // point is a class rn b/c structs are not yet fully implemented
 
 class Widget (
     .pos:Coord
 )
 
-fn main:uint32 () $(
+fn main:u32 () $(
     button:Widget,
     first:Coord,
     second:Coord,
-    x:uint32,
-    overwrite:uint32
+    x:u32,
+    overwrite:u32
 ) (
     // make first and seond before button. then make button and change it
     first:Coord = Coord {
-        uint32.(0),
-        uint32.(0),
+        u32.(0),
+        u32.(0),
     }
     //<- Coord // later this `<-` fill be fored to be dropped
 
     second:Coord = Coord {
-        uint32.(127),
-        uint32.(255),
+        u32.(127),
+        u32.(255),
     }
     //<- Coord // tmp
 
     // expr stmt // second:Coord -> Coord
 
-    overwrite:uint32 = uint32.(511)
-    //<- uint32 // tmp
+    overwrite:u32 = u32.(511)
+    //<- u32 // tmp
 
     // TODO: add infix notation
-    // overwrite:uint32 = (+
-    //     overwrite:uint32 -> uint32
-    //     litrl(uint32, 512)
-    //     -> uint32
+    // overwrite:u32 = (+
+    //     overwrite:u32 -> u32
+    //     litrl(u32, 512)
+    //     -> u32
     // )
-    // <- uint32 // tmp
+    // <- u32 // tmp
 
     // make button
     button:Widget = Widget {
@@ -55,10 +55,10 @@ fn main:uint32 () $(
 
     // set y in second to 511 throught button
     // as py: `button.pos.y = 512`
-    button:Widget .pos:Coord .y:uint32 = overwrite:uint32
-        // -> uint32 // tmp
-    // <- uint32 // tmp
+    button:Widget .pos:Coord .y:u32 = overwrite:u32
+        // -> u32 // tmp
+    // <- u32 // tmp
 
-    return uint32.(0) // or just ret
-    // <- uint32 // tmp
+    return u32.(0) // or just ret
+    // <- u32 // tmp
 )

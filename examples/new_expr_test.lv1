@@ -1,10 +1,10 @@
 class(RefdNum, mbrs(
-    mbr(num, int16)
+    mbr(num, i16)
 ))
 
 class(clsWith2Mbrs, mbrs(
-    mbr(a, int16),
-    mbr(b, int16)
+    mbr(a, i16),
+    mbr(b, i16)
 ))
 
 struct(LinkedPoint, mbrs(
@@ -13,7 +13,7 @@ struct(LinkedPoint, mbrs(
 ))
 
 
-fn(main, int16, args(),
+fn(main, i16, args(),
     locals( lcl(point, LinkedPoint), lcl(foo, RefdNum), lcl(newtest, clsWith2Mbrs)),
     frame(
         btw(
@@ -22,9 +22,9 @@ fn(main, int16, args(),
         )
         asn(var(newtest, clsWith2Mbrs),
             new(clsWith2Mbrs, cntn(
-                //get(mbrof(foo, RefdNum, mbr(num, int16)), int16),
-                litrl(int16, 127),
-                litrl(int16, 255),
+                //get(mbrof(foo, RefdNum, mbr(num, i16)), i16),
+                litrl(i16, 127),
+                litrl(i16, 255),
             )),
             clsWith2Mbrs
         )
@@ -33,14 +33,14 @@ fn(main, int16, args(),
         asn(var(point, LinkedPoint),
             new(LinkedPoint, cntn(
                 new(RefdNum, cntn(
-                    litrl(int16, 127)
+                    litrl(i16, 127)
                 )),
                 new(RefdNum, cntn(
-                    litrl(int16, 127)
+                    litrl(i16, 127)
                 ))
             )),
             LinkedPoint
         )
-        ret(litrl(int16, 0), int16)
+        ret(litrl(i16, 0), i16)
     )
 )

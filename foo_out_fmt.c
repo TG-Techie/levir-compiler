@@ -263,7 +263,7 @@ typedef long unsigned int uintmax_t;
 # 53 "/usr/local/Cellar/llvm/10.0.1/lib/clang/10.0.1/include/stdint.h" 2 3
 # 2 "levir/backs/c/levir_builtins.h" 2
 # 27 "levir/backs/c/levir_builtins.h"
-typedef struct uint64 {
+typedef struct u64 {
   uint64_t native;
 } type_uint64;
 type_uint64 dflt_uint64() { return (type_uint64){0}; }
@@ -271,7 +271,7 @@ type_uint64 get_uint64(type_uint64 self) { return self; }
 void rtn_uint64(type_uint64 self) { return; }
 void rel_uint64(type_uint64 self) { return; }
 type_uint64 litrl_uint64(uint64_t val) { return (type_uint64){val}; }
-typedef struct uint32 {
+typedef struct u32 {
   uint32_t native;
 } type_uint32;
 type_uint32 dflt_uint32() { return (type_uint32){0}; }
@@ -279,7 +279,7 @@ type_uint32 get_uint32(type_uint32 self) { return self; }
 void rtn_uint32(type_uint32 self) { return; }
 void rel_uint32(type_uint32 self) { return; }
 type_uint32 litrl_uint32(uint32_t val) { return (type_uint32){val}; }
-typedef struct uint16 {
+typedef struct u16 {
   uint16_t native;
 } type_uint16;
 type_uint16 dflt_uint16() { return (type_uint16){0}; }
@@ -287,7 +287,7 @@ type_uint16 get_uint16(type_uint16 self) { return self; }
 void rtn_uint16(type_uint16 self) { return; }
 void rel_uint16(type_uint16 self) { return; }
 type_uint16 litrl_uint16(uint16_t val) { return (type_uint16){val}; }
-typedef struct uint8 {
+typedef struct u8 {
   uint8_t native;
 } type_uint8;
 type_uint8 dflt_uint8() { return (type_uint8){0}; }
@@ -296,7 +296,7 @@ void rtn_uint8(type_uint8 self) { return; }
 void rel_uint8(type_uint8 self) { return; }
 type_uint8 litrl_uint8(uint8_t val) { return (type_uint8){val}; }
 
-typedef struct int64 {
+typedef struct i64 {
   int64_t native;
 } type_int64;
 type_int64 dflt_int64() { return (type_int64){0}; }
@@ -304,7 +304,7 @@ type_int64 get_int64(type_int64 self) { return self; }
 void rtn_int64(type_int64 self) { return; }
 void rel_int64(type_int64 self) { return; }
 type_int64 litrl_int64(int64_t val) { return (type_int64){val}; }
-typedef struct int32 {
+typedef struct i32 {
   int32_t native;
 } type_int32;
 type_int32 dflt_int32() { return (type_int32){0}; }
@@ -312,7 +312,7 @@ type_int32 get_int32(type_int32 self) { return self; }
 void rtn_int32(type_int32 self) { return; }
 void rel_int32(type_int32 self) { return; }
 type_int32 litrl_int32(int32_t val) { return (type_int32){val}; }
-typedef struct int16 {
+typedef struct i16 {
   int16_t native;
 } type_int16;
 type_int16 dflt_int16() { return (type_int16){0}; }
@@ -320,7 +320,7 @@ type_int16 get_int16(type_int16 self) { return self; }
 void rtn_int16(type_int16 self) { return; }
 void rel_int16(type_int16 self) { return; }
 type_int16 litrl_int16(int16_t val) { return (type_int16){val}; }
-typedef struct int8 {
+typedef struct i8 {
   int8_t native;
 } type_int8;
 type_int8 dflt_int8() { return (type_int8){0}; }
@@ -329,7 +329,7 @@ void rtn_int8(type_int8 self) { return; }
 void rel_int8(type_int8 self) { return; }
 type_int8 litrl_int8(int8_t val) { return (type_int8){val}; }
 
-typedef struct float32 {
+typedef struct f32 {
   float native;
 } type_float32;
 type_float32 dflt_float32() { return (type_float32){0}; }
@@ -337,7 +337,7 @@ type_float32 get_float32(type_float32 self) { return self; }
 void rtn_float32(type_float32 self) { return; }
 void rel_float32(type_float32 self) { return; }
 type_float32 litrl_float32(float val) { return (type_float32){val}; }
-typedef struct float64 {
+typedef struct f64 {
   double native;
 } type_float64;
 type_float64 dflt_float64() { return (type_float64){0}; }

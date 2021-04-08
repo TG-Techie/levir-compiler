@@ -1,20 +1,20 @@
 
 struct(Point, mbrs(
-    mbr(x, float64),
-    mbr(y, float64),
+    mbr(x, f64),
+    mbr(y, f64),
 ))
 
-fn(main, float64, args(),
+fn(main, f64, args(),
     locals(
         lcl(init, Point), lcl(copy, Point),
-        lcl(xinit, float64), lcl(xcopy, float64)
+        lcl(xinit, f64), lcl(xcopy, f64)
     ),
     frame(
         //btw("make inital point then copy it")
         asn(var(init, Point),
             new(Point, cntn(
-                litrl(float64, 0.0),
-                litrl(float64, 0.0),
+                litrl(f64, 0.0),
+                litrl(f64, 0.0),
             )),
             Point
         )
@@ -23,20 +23,20 @@ fn(main, float64, args(),
             Point
         )
         //btw("change the copied point")
-        asn(mbrof(copy, Point, mbr(x, float64)),
-            litrl(float64, 7.0),
-            float64
+        asn(mbrof(copy, Point, mbr(x, f64)),
+            litrl(f64, 7.0),
+            f64
         )
         //btw("extract the changed and unchanged member, see they don't match")
-        asn(var(xinit, float64),
-            get(mbrof(init, Point, mbr(x, float64)), float64),
-            float64
+        asn(var(xinit, f64),
+            get(mbrof(init, Point, mbr(x, f64)), f64),
+            f64
         )
-        asn(var(xcopy, float64),
-            get(mbrof(copy, Point, mbr(x, float64)), float64),
-            float64
+        asn(var(xcopy, f64),
+            get(mbrof(copy, Point, mbr(x, f64)), f64),
+            f64
         )
 
-        ret(litrl(float64, 0.0), float64)
+        ret(litrl(f64, 0.0), f64)
     )
 )

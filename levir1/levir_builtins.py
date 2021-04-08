@@ -72,18 +72,18 @@ builtin_items = (
     # levir1 sized bool
     BuiltinStruct("Bool"),
     # TODO: rename to i8 ... i64
-    BuiltinStruct("int8"),
-    BuiltinStruct("int16"),
-    BuiltinStruct("int32"),
-    BuiltinStruct("int64"),
+    BuiltinStruct("i8"),
+    BuiltinStruct("i16"),
+    BuiltinStruct("i32"),
+    BuiltinStruct("i64"),
     # TODO: rename to u8 ... u64
-    BuiltinStruct("uint8"),
-    BuiltinStruct("uint16"),
-    BuiltinStruct("uint32"),
-    BuiltinStruct("uint64"),
+    BuiltinStruct("u8"),
+    BuiltinStruct("u16"),
+    BuiltinStruct("u32"),
+    BuiltinStruct("u64"),
     # TODO: rename f32 and f64
-    BuiltinStruct("float32"),
-    BuiltinStruct("float64"),
+    BuiltinStruct("f32"),
+    BuiltinStruct("f64"),
     # TODO: consider if these are needed
     BuiltinStruct("char"),
     BuiltinStruct("Void"),

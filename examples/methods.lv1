@@ -1,19 +1,19 @@
 
 struct(Counter, mbrs(
-    mbr(_count, uint64)
+    mbr(_count, u64)
 ))
 
 mthd(Counter, inc, Void,
     args(arg(self, &Counter)),
     locals(),
     frame(
-        asn(mbrof(self, &Counter, mbr(_count, uint64)),
+        asn(mbrof(self, &Counter, mbr(_count, u64)),
             add(
-                get(mbrof(self, &Counter, mbr(_count, uint64)), uint64),
-                litrl(uint64, 1),
-                uint64
+                get(mbrof(self, &Counter, mbr(_count, u64)), u64),
+                litrl(u64, 1),
+                u64
             ),
-            uint64
+            u64
         )
         ret(litrl(Void, 0), Void)
     )
@@ -23,13 +23,13 @@ mthd(Counter, dec, Void,
     args(arg(self, &Counter)),
     locals(),
     frame(
-        asn(mbrof(self, &Counter, mbr(_count, uint64)),
+        asn(mbrof(self, &Counter, mbr(_count, u64)),
             sub(
-                get(mbrof(self, &Counter, mbr(_count, uint64)), uint64),
-                litrl(uint64, 1),
-                uint64
+                get(mbrof(self, &Counter, mbr(_count, u64)), u64),
+                litrl(u64, 1),
+                u64
             ),
-            uint64
+            u64
         )
         ret(litrl(Void, 0), Void)
     )

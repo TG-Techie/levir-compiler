@@ -1,5 +1,5 @@
 
-fn(main, uint32, args(),
+fn(main, u32, args(),
     locals(
         lcl(cond1, Bool),
         lcl(cond2, Bool),
@@ -19,6 +19,6 @@ fn(main, uint32, args(),
                 dropin('c', `puts("False")`)
             )
         )
-        ret(litrl(uint32, 0), uint32)
+        ret(litrl(u32, 0), u32)
     )
 )

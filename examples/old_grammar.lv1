@@ -1,40 +1,40 @@
 
 struct(Coord, mbrs(
-    mbr(x, uint32),
-    mbr(y, uint32),
+    mbr(x, u32),
+    mbr(y, u32),
 ))
 
 class(Widget, mbrs(
     mbr(pos, Coord),
 ))
 
-fn(main, uint32, args(),
+fn(main, u32, args(),
     locals(
         lcl(button, Widget),
         lcl(first, Coord),
         lcl(second, Coord),
-        lcl(overwrite, uint32),
-        lcl(x, uint32)
+        lcl(overwrite, u32),
+        lcl(x, u32)
     ),
     frame(
         // make first and seond before button. then make button and change it
         asn(var(first, Coord),
             new(Coord, cntn(
-                litrl(uint32, 0), litrl(uint32, 0),
+                litrl(u32, 0), litrl(u32, 0),
             )),
             Coord
         )
 
         asn(var(second, Coord),
             new(Coord, cntn(
-                litrl(uint32, 127), litrl(uint32, 255),
+                litrl(u32, 127), litrl(u32, 255),
             )),
             Coord
         )
 
-        asn(var(overwrite, uint32),
-            litrl(uint32, 511),
-            uint32
+        asn(var(overwrite, u32),
+            litrl(u32, 511),
+            u32
         )
 
 
@@ -55,20 +55,20 @@ fn(main, uint32, args(),
         // set y in second to 511 throught button
         asn(mbrof(button, Widget, mbrs(
                 mbr(pos, Coord),
-                mbr(y, uint32)
+                mbr(y, u32)
             )),
-            get(var(overwrite, uint32), uint32),
-            uint32
+            get(var(overwrite, u32), u32),
+            u32
         )
 
         ret(
             get(mbrof(button, Widget, mbrs(
                     mbr(pos, Coord),
-                    mbr(y, uint32)
+                    mbr(y, u32)
                 )),
-                uint32
+                u32
             ),
-            uint32
+            u32
         )
     )
 )
