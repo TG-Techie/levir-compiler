@@ -34,3 +34,9 @@ mthd(Counter, dec, Void,
         ret(litrl(Void, 0), Void)
     )
 )
+
+fn main: Void (
+    counter: Counter = Counter{0}
+    counter.inc()
+    counter.dec()
+)

@@ -14,7 +14,7 @@ fn main:uint32 () $(
     second:Coord,
     x:uint32,
     overwrite:uint32
-), (
+) (
     // make first and seond before button. then make button and change it
     first:Coord = Coord {
         uint32.(0),

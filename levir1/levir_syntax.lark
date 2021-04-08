@@ -16,7 +16,7 @@ classdef: "class" "("  name "," mbrs ")"
 structdef: "struct" "(" name "," mbrs ")"
          | "struct" name "(" mbrs ")"
 fndef: "fn" "(" fnname "," rettype "," args "," (locals|meh) "," frame ")"
-     | "fn"  fnname ":" rettype args "(" (locals|meh) "," frame ")"
+     | "fn"  fnname ":" rettype args  (locals|meh) frame
      //| "fn" fnname args "->" rettype "(" locals "," frame ")"
 //mthddef: "mthd" "(" outtype "," name "," rettype "," args "," locals "," frame ")"
 
@@ -33,7 +33,7 @@ args: "args"? list{arg}
 arg: "arg" "(" argname "," type ")"
    | argname ":" type
 
-locals: "locals" list{lcl}
+locals: ("$"|"locals") list{lcl}
 lcl: "lcl" "(" lclname "," type ")"
    | lclname ":" type
 
@@ -149,7 +149,7 @@ bwnot: "~"
 pow: "**"
 
 // named idents (for clarity)
-meh: "_"
+meh: "_"?
 name: IDENT
 
 type: _ref? IDENT

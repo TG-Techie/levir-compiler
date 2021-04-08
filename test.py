@@ -9,7 +9,7 @@ checks = (
     "new_grammar.lv1",
     "cond_old.lv1",
     "struct.lv1",
-    "methods.lv1",
+    # "methods.lv1",
 )
 
 for filename in checks:
