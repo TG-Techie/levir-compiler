@@ -12,13 +12,14 @@ seq{val}: val*
 
 
 classdef: "class" "("  name "," mbrs ")"
-        | "class" name "(" mbrs ")"
+    | "class" name "(" mbrs ")"
 structdef: "struct" "(" name "," mbrs ")"
-         | "struct" name "(" mbrs ")"
+    | "struct" name "(" mbrs ")"
 fndef: "fn" "(" fnname "," rettype "," args "," locals "," frame ")"
-     | "fn"  fnname ":" rettype args "(" locals "," frame ")"
+    | "fn"  fnname ":" rettype args locals "(" frame ")"
      //| "fn" fnname args "->" rettype "(" locals "," frame ")"
-mthddef: "mthd" "(" outtype "," name "," rettype "," args "," locals "," frame ")"
+mthddef: "mthd" "(" outertype "," name "," rettype "," args "," locals "," frame ")"
+    | "mthd" outertype "." name ":" rettype args "(" locals "," frame ")"
 
 frame: "frame" "(" stmt+ ")"
 
@@ -32,7 +33,7 @@ args: "args"? list{arg}
 arg: "arg" "(" argname "," type ")"
    | argname ":" type
 
-locals: "locals" list{lcl}
+locals: ("$" | "locals") list{lcl}
 lcl: "lcl" "(" lclname "," type ")"
    | lclname ":" type
 
@@ -129,7 +130,7 @@ lclname: IDENT
 fnname: IDENT
 rettype: type
 
-outtype: type
+outertype: type
 
 
 

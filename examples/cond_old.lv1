@@ -1,0 +1,24 @@
+
+fn(main, u32, args(),
+    locals(
+        lcl(cond1, Bool),
+        lcl(cond2, Bool),
+        lcl(cond3, Bool)
+    ),
+    frame(
+        asn(var(cond1, Bool),
+            litrl(Bool, True),
+            Bool
+        )
+        if(get(var(cond1, Bool), Bool),
+            frame(
+                dropin('c', `puts("True")`)
+            )
+        )
+        else(frame(
+                dropin('c', `puts("False")`)
+            )
+        )
+        ret(litrl(u32, 0), u32)
+    )
+)

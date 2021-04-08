@@ -1,14 +1,17 @@
 from typing import *
 
-__all__ = ('isiterable', 'isclass', 'areall')
+__all__ = ("isiterable", "isclass", "areall")
+
 
 def isiterable(obj: object) -> bool:
     global isinstance
-    return not isinstance(obj, type) and hasattr(obj, '__iter__')
+    return not isinstance(obj, type) and hasattr(obj, "__iter__")
+
 
 def isclass(obj: object) -> bool:
     global isinstance
     return isinstance(obj, type)
+
 
 def areall(itrbl, types):
     global isiterable
@@ -16,7 +19,7 @@ def areall(itrbl, types):
     return all(isinstance(item, types) for item in itrbl)
 
 
-def _proto_pipethru(val:object, *fns) -> object:
+def _proto_pipethru(val: object, *fns) -> object:
     if not isinstance(val, tuple):
         val = (val,)
 
@@ -27,4 +30,4 @@ def _proto_pipethru(val:object, *fns) -> object:
 
 
 def test(print):
-    pass # TODO: add tests
+    pass  # TODO: add tests

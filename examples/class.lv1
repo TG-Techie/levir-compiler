@@ -1,0 +1,36 @@
+class(mod_main_Counter, mbrs(
+    mbr(_count, u32)
+))
+
+fn(main, u32,
+    args(),
+    locals(lcl(foo, mod_main_Counter), lcl(foombr1, u32), lcl(foombr2, u32)),
+    frame(
+        asn(var(foo, mod_main_Counter),
+            new(mod_main_Counter, cntn(litrl(u32, 6))),
+            mod_main_Counter
+        )
+
+        asn(var(foombr1, u32),
+            get(
+                mbrof(foo, mod_main_Counter, mbr(_count, u32)),
+                u32
+            ),
+            u32
+        )
+
+        asn(mbrof(foo, mod_main_Counter, mbrs(
+                mbr(_count, u32)
+            )), litrl(u32, 128), u32
+        )
+
+        asn(var(foombr2, u32),
+            get(mbrof(foo, mod_main_Counter, mbr(_count, u32)), u32),
+            u32
+        )
+
+        ret(get(var(foombr1, u32), u32), u32)
+    )
+)
+
+// fn(selfproxytest, u32, ) 
